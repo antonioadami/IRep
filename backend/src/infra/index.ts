@@ -1,14 +1,18 @@
+import 'dotenv/config';
+import 'reflect-metadata';
+
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 
-import AppError from './errors/AppError';
-// import routes from './routes';
+import AppError from './http/errors/AppError';
+import routes from './http/routes';
+import './container';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(routes);
+app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     if (err instanceof AppError) {

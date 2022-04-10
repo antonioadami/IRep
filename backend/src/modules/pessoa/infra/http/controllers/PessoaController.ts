@@ -1,0 +1,33 @@
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+
+import ICreatePessoaDTO from '@modules/pessoa/dtos/ICreatePessoaDTO';
+import CreatePessoaService from '../../../services/CreatePessoaService';
+import AppError from '../../../../../infra/http/errors/AppError';
+
+export default class PessoaController {
+    public async create(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const createPessoaService = container.resolve(CreatePessoaService);
+
+        const { nome, email, dataNascimento, cpf }: ICreatePessoaDTO =
+            request.body;
+
+        if (!nome || !email || !dataNascimento || !cpf) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const dataNasc = dataNascimento;
+
+        const pessoa = await createPessoaService.execute({
+            cpf,
+            dataNascimento: dataNasc,
+            email,
+            nome,
+        });
+
+        return response.status(200).json(pessoa);
+    }
+}
