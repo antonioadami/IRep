@@ -1,17 +1,13 @@
 import { inject, injectable } from 'tsyringe';
 
-// import AppError from '../../../infra/errors/AppError';
-
+import AppError from '../../../infra/http/errors/AppError';
 import IPessoaModel from '../models/IPessoaModel';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IPessoaRepository from '../repositories/IPessoaRepository';
 import ICreatePessoaDTO from '../dtos/ICreatePessoaDTO';
 
 @injectable()
 export default class CreatePessoaService {
     constructor(
-        @inject('HashProvider')
-        private hashProvider: IHashProvider,
         @inject('PessoaRepository')
         private pessoaRepository: IPessoaRepository,
     ) {}
@@ -22,13 +18,14 @@ export default class CreatePessoaService {
         email,
         nome,
     }: ICreatePessoaDTO): Promise<IPessoaModel> {
-        // const checkClientExists = await this.clientsRepository.findByCPF(cpf);
+        const checkPessoaExists = await this.pessoaRepository.checkExistence(
+            cpf,
+            email,
+        );
 
-        // if (checkClientExists) {
-        //     throw new AppError('CPF already used');
-        // }
-
-        // const hashedPassword = await this.hashProvider.generateHash(password);
+        if (checkPessoaExists) {
+            throw new AppError('Cpf ou email já cadastrados');
+        }
 
         const pessoa = await this.pessoaRepository.create({
             cpf,
@@ -36,8 +33,6 @@ export default class CreatePessoaService {
             email,
             nome,
         });
-
-        // delete pessoa.password;
 
         return pessoa;
     }

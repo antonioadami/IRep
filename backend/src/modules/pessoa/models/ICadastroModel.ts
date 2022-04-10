@@ -1,4 +1,4 @@
-export default interface ICreateCadstro {
+export default interface ICadastroModel {
     usuario: string;
     senha: string;
 }

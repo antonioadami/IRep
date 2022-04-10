@@ -6,7 +6,7 @@ if (
     !process.env.NEO4J_USER ||
     !process.env.NEO4J_PASSWORD
 ) {
-    throw new AppError('Forneça a autenticação do Neo4j');
+    throw new AppError('Erro na autenticação do Neo4j', 500);
 }
 
 const driver = neo4j.driver(
