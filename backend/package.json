@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/infra/index.ts",
+    "start": "ts-node -r tsconfig-paths/register src/infra/index.ts",
     "build": "tsc",
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules src/infra/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -38,6 +38,7 @@
     "jsonwebtoken": "^8.5.1",
     "neo4j-driver": "^4.4.5",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.7.0",
     "tsyringe": "^4.6.0"
   }
 }
