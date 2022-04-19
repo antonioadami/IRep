@@ -7,4 +7,8 @@ const routes = Router();
 routes.use('/auth', authRouter);
 routes.use('/pessoa', pessoaRouter);
 
+routes.get('/test', (req, res) => {
+    return res.json({ message: 'OK' });
+});
+
 export default routes;
