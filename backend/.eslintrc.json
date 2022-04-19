@@ -33,7 +33,8 @@
         }],
         "prettier/prettier": "error",
         "no-use-before-define": "off",
-        "no-useless-constructor": "off"
+        "no-useless-constructor": "off",
+        "class-methods-use-this": "off"
     },
     "settings": {
         "import/resolver": {
