@@ -24,7 +24,7 @@ export default class CreatePessoaService {
         );
 
         if (checkPessoaExists) {
-            throw new AppError('Cpf ou email já cadastrados');
+            throw new AppError('Cpf ou email já cadastrado');
         }
 
         const pessoa = await this.pessoaRepository.create({

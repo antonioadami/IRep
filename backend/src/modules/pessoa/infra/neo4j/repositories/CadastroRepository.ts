@@ -28,4 +28,18 @@ export default class CadastroRepository implements ICadastroRepository {
         const Cadastro = result.records[0].get(0).properties;
         return Cadastro;
     }
+
+    public async getByUsuario(usuario: string): Promise<ICadastroModel> {
+        const result = await session.run(
+            'MATCH (c: Cadastro{usuario:$usuario}) RETURN c',
+            { usuario },
+        );
+
+        const Cadastro =
+            result.records.length > 0
+                ? result.records[0].get(0).properties
+                : null;
+
+        return Cadastro;
+    }
 }

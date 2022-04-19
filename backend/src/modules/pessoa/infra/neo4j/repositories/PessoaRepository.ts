@@ -29,4 +29,14 @@ export default class PessoasRepository implements IPessoasRepository {
         const Pessoa = result.records[0].get(0).properties;
         return Pessoa;
     }
+
+    public async getByEmail(email: string): Promise<IPessoaModel> {
+        const result = await session.run(
+            'MATCH(p: Pessoa{email: $email}) RETURN p',
+            { email },
+        );
+
+        const Pessoa = result.records[0].get(0).properties;
+        return Pessoa;
+    }
 }
