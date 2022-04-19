@@ -1,1 +1,0 @@
-web:ts-node -r tsconfig-paths/register /src/infra/index.ts
