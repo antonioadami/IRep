@@ -5,7 +5,6 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
-    "build": "ts-node -r tsconfig-paths/register src/index.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
