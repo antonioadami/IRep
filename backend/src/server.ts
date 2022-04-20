@@ -5,9 +5,9 @@ import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 
-import AppError from './http/errors/AppError';
-import routes from './http/routes';
-import './container';
+import AppError from './infra/http/errors/AppError';
+import routes from './infra/http/routes';
+import './infra/container';
 
 const app = express();
 
