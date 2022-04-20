@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import LoginService from '@modules/pessoa/services/LoginService';
+import LoginService from '../../../services/LoginService';
 
 import AppError from '../../../../../infra/http/errors/AppError';
 
