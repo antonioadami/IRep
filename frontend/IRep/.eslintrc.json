@@ -1,0 +1,127 @@
+{
+  "root": true,
+  "env": {
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "indent": [0, 2],
+        "radix": 0,
+        "no-param-reassign": [0, { "props": false }],
+        "prefer-const": 1,
+        "max-len": [
+          1,
+          120,
+          { "ignoreTemplateLiterals": true, "ignoreTrailingComments": true }
+        ],
+        "arrow-parens": [0, "as-needed"],
+        "no-else-return": 1,
+        "no-plusplus": 0,
+        "no-unused-vars":"off",
+        "no-use-before-define": 0,
+        "one-var": 0,
+        "padded-blocks": 0,
+        "guard-for-in": 0,
+        "no-restricted-syntax": 0,
+        "no-console": 0,
+        "no-return-assign": 0,
+        "curly": "off",
+        "no-useless-escape": 0,
+        "no-cond-assign": 0,
+        "no-loop-func": 0,
+        "no-multiple-empty-lines": ["warn", { "maxEOF": 1, "max": 1 }],
+        "no-underscore-dangle": 0,
+        "no-continue": 0,
+        "consistent-return": 0,
+        "import/no-named-as-default": 0,
+        "import/extensions": 0,
+        "import/no-unresolved": "off",
+        "import/no-extraneous-dependencies": 0,
+        "import/prefer-default-export": 0,
+        "@typescript-eslint/quotes": "off",
+        "@typescript-eslint/member-ordering": "off",
+        "import/no-cycle": 1,
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "object",
+              "external",
+              "internal",
+              "parent",
+              "sibling",
+              "index"
+            ],
+            "pathGroups": [
+              {
+                "pattern": "utils/**",
+                "group": "internal",
+                "position": "before"
+              },
+              {
+                "pattern": "store/**",
+                "group": "internal",
+                "position": "before"
+              },
+              {
+                "pattern": "(component|container)/**",
+                "group": "parent",
+                "position": "before"
+              }
+            ]
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "",
+            "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ],
+        "@typescript-eslint/no-inferrable-types": "off",
+        "brace-style": ["off", "off"],
+        "object-shorthand": "off",
+        "quote-props": ["error", "consistent"]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}

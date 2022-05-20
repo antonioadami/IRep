@@ -1,0 +1,23 @@
+<div class="w-full h-full flex justify-center items-center bg-gray-100">
+  <div class="bg-white rounded-3xl grid justify-items-center" style = "height: 30rem; width: 25rem;">
+    <div class="text-5xl py-10">
+      <span class="font-serif">IRep</span>
+    </div>
+
+    <div class="flex flex-col w-80">
+      <span>Insira o e-mail cadastrado e enviaremos um link para você voltar a acessar a sua conta</span>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput>
+        <!-- <mat-icon svgIcon="heroicons_solid:mail"></mat-icon> -->
+        <!-- <mat-hint>Email</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col gap-3 grid justify-items-center">
+      <button class="bg-red-600 rounded-2xl text-white h-8 w-80">Enviar</button>
+      <button class="text-red-600 mb-4" [routerLink]="['/login']">Voltar</button>
+    </div>
+  </div>
+</div>
+
