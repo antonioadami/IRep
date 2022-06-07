@@ -21,7 +21,7 @@ export default class CadastroRepository implements ICadastroRepository {
 
     public async create(data: ICreateCadastroDTO): Promise<ICadastroModel> {
         const result = await session.run(
-            'MATCH (p: Pessoa{email:$usuario}) CREATE (p)-[:PERTENCE]->(c: Cadastro{usuario: $usuario, senha: $senha}) RETURN c',
+            'MATCH (p: Pessoa{email:$usuario}) CREATE (p)-[:PERTENCE]->(c: Cadastro{usuario: $usuario, senha: $senha}) RETURN c, p.uuid',
             data,
         );
 
@@ -31,7 +31,7 @@ export default class CadastroRepository implements ICadastroRepository {
 
     public async getByUsuario(usuario: string): Promise<ICadastroModel> {
         const result = await session.run(
-            'MATCH (c: Cadastro{usuario:$usuario}) RETURN c',
+            'MATCH (p:Pessoa)-[:PERTENCE]->(c: Cadastro{usuario:$usuario}) RETURN c, p.uuid',
             { usuario },
         );
 
@@ -40,6 +40,7 @@ export default class CadastroRepository implements ICadastroRepository {
                 ? result.records[0].get(0).properties
                 : null;
 
-        return Cadastro;
+        const uuid = result.records[0].get(1);
+        return { ...Cadastro, uuid };
     }
 }

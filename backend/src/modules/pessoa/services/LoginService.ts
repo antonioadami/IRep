@@ -30,7 +30,10 @@ export default class LoginService {
             throw new AppError('Usuário ou senha inválido');
         }
 
-        const token = sign({}, process.env.JWT_SECRET as string);
+        const token = sign(
+            { uuid: cadastro.uuid },
+            process.env.JWT_SECRET as string,
+        );
 
         return token;
     }
