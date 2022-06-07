@@ -14,7 +14,13 @@ export default function ensureAuthenticate(
         throw new AppError('JWT token not provided', 401);
     }
 
-    const [, token] = auth.split(' ');
+    const splittedToken = auth.split(' ');
+    const bearer = splittedToken[0];
+    const token = splittedToken[1];
+
+    if (splittedToken.length !== 2 || bearer !== 'Bearer') {
+        throw new AppError('Invalid JWT token', 401);
+    }
 
     const secret = process.env.JWT_SECRET as Secret;
 
