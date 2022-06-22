@@ -11,7 +11,7 @@
         <!-- <mat-icon svgIcon="heroicons_solid:mail"></mat-icon> -->
         <!-- <mat-hint>Email</mat-hint> -->
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field [color]="'primary'" appearance="outline">
         <mat-label>Senha</mat-label>
         <input type="password" matInput placeholder="">
         <mat-icon matSuffix></mat-icon>
@@ -21,7 +21,7 @@
 
     <div class="flex flex-col gap-3 grid justify-items-center">
       <button class="text-red-600 mb-8" [routerLink]="['/forgot-pass']">Esqueceu sua senha?</button>
-      <button class="bg-red-600 rounded-2xl text-white h-8 w-80">Entrar</button>
+      <button class="bg-red-600 rounded-2xl text-white h-8 w-80" [routerLink]="['/Irep/dashboard']">Entrar</button>
       <button class="text-red-600 mb-4" [routerLink]="['/register']">Cadastrar-se</button>
     </div>
   </div>
