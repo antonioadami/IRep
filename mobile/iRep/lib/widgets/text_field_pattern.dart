@@ -31,7 +31,6 @@ class TextFieldPattern extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextFormField(
@@ -43,6 +42,7 @@ class TextFieldPattern extends StatelessWidget {
             labelStyle: const TextStyle(
               color: Colors.grey,
             ),
+            fillColor: Colors.grey.shade200,
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.grey,

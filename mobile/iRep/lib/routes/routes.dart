@@ -11,7 +11,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   splashScreen: (context) => const SplashScreenWidget(),
   login: (context) => const LoginPage(),
   passwordRecovery: (context) => const PasswordRecovery(),
-  register: (context) => const RegisterPage(),
+  register: (context) => RegisterPage(),
   home: (context) => const HomePage(),
   residenceDetails: (context) => const ResidenceDetails(),
 };

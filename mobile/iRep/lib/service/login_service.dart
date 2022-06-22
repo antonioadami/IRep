@@ -1,15 +1,10 @@
 import 'package:either_dart/either.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:irep/helpers/mocks/user_mock.dart';
+import 'package:irep/datasource/login_datasource.dart';
 import 'package:irep/models/error_model.dart';
 import 'package:irep/models/succes_model.dart';
-import 'package:irep/models/user_model.dart';
-import 'package:irep/service/login_service.dart';
 
-class LoginViewModel extends ChangeNotifier {
-  LoginService service = LoginService();
-  UserModel? user;
-
+class LoginService {
+  LoginDatasource datasource = LoginDatasource();
   Future<Either<ErrorModel, SuccessModel>> registerUser({
     required String cpf,
     required String email,
@@ -18,21 +13,13 @@ class LoginViewModel extends ChangeNotifier {
     required String telefone,
     required String dataNascimento,
   }) async {
-    return await service.registerUser(
+    return await datasource.registerUser(
       cpf: cpf,
       email: email,
       nome: nome,
-      senha: senha,
       dataNascimento: dataNascimento,
+      senha: senha,
       telefone: telefone,
     );
-  }
-
-  void getInformation() {
-    user = UserModel.fromJson(userMock);
-  }
-
-  void logOut() {
-    user = null;
   }
 }
