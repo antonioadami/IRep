@@ -9,4 +9,5 @@ export default interface IImovelModel {
     gas: boolean;
     internet: boolean;
     endereco: IEnderecoModel;
+    contato: { email: string; telefone: string };
 }
