@@ -7,6 +7,6 @@ const pessoaRouter = Router();
 const pessoaController = new PessoaController();
 
 pessoaRouter.post('/', pessoaController.create);
-pessoaRouter.get('/', ensureAuthenticate, pessoaController.get);
+pessoaRouter.get('/', ensureAuthenticate(), pessoaController.get);
 
 export default pessoaRouter;

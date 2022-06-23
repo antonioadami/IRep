@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateImovelService from '../../../services/CreateImovelService';
+import ListImoveisService from '../../../services/ListImoveisService';
+import GetImovelService from '../../../services/GetImovelService';
 import ICreateImovelDTO from '../../../dtos/ICreateImovelDTO';
 
 import AppError from '../../../../../infra/http/errors/AppError';
@@ -35,6 +37,30 @@ export default class ImovelController {
         }
 
         const imovel = await createImovelService.execute(data, user);
+
+        return response.status(200).json(imovel);
+    }
+
+    public async list(request: Request, response: Response): Promise<Response> {
+        const listImoveisService = container.resolve(ListImoveisService);
+
+        const imovel = await listImoveisService.execute();
+
+        return response.status(200).json(imovel);
+    }
+
+    public async get(request: Request, response: Response): Promise<Response> {
+        const getImovelService = container.resolve(GetImovelService);
+
+        const { user } = request;
+
+        const { uuid } = request.params;
+
+        if (!uuid) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const imovel = await getImovelService.execute(uuid, !!user);
 
         return response.status(200).json(imovel);
     }

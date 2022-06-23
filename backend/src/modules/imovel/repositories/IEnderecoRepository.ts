@@ -3,4 +3,5 @@ import IEnderecoModel from '../models/IEnderecoModel';
 
 export default interface IEnderecoRepository {
     create(data: ICreateEnderecoDTO): Promise<IEnderecoModel>;
+    get(uuidImovel: string): Promise<IEnderecoModel>;
 }
