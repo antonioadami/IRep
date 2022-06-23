@@ -60,7 +60,7 @@ export default class ImovelController {
             throw new AppError('Dados faltantes');
         }
 
-        const imovel = await getImovelService.execute(uuid, user.uuid);
+        const imovel = await getImovelService.execute(uuid, user?.uuid);
 
         return response.status(200).json(imovel);
     }
