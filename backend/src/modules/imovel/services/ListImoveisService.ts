@@ -13,8 +13,6 @@ export default class ListImoveisService {
     public async execute(): Promise<IImovelModel[]> {
         const imoveis = await this.imovelRepository.list();
 
-        console.log(imoveis);
-
         return imoveis;
     }
 }

@@ -13,4 +13,14 @@ export default class EnderecoRepository implements IEnderecoRepository {
         const Endereco = result.records[0].get(0).properties;
         return Endereco;
     }
+
+    public async get(uuidImovel: string): Promise<IEnderecoModel> {
+        const result = await session.run(
+            'MATCH (i: Imovel{uuid:$uuidImovel})-[:LOCALIZA_SE]->(e) RETURN e',
+            { uuidImovel },
+        );
+
+        const Endereco = result.records[0].get(0).properties;
+        return Endereco;
+    }
 }

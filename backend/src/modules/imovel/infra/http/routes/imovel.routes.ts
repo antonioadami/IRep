@@ -8,5 +8,6 @@ const imovelController = new ImovelController();
 
 imovelRouter.post('/', ensureAuthenticate(), imovelController.create);
 imovelRouter.get('/', imovelController.list);
+imovelRouter.get('/:uuid', ensureAuthenticate(true), imovelController.get);
 
 export default imovelRouter;

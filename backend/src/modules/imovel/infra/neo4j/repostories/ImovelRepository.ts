@@ -11,14 +11,25 @@ export default class ImovelRepository implements IImovelRepository {
             data,
         );
 
-        const Imovel = result.records[0].get(0).properties;
-        return Imovel;
+        const imovel = result.records[0].get(0).properties;
+        return imovel;
     }
 
     public async list(): Promise<IImovelModel[]> {
         const result = await session.run('MATCH (i: Imovel) RETURN i');
 
-        const Imovel = result.records[0]?.get(0).properties;
-        return Imovel;
+        const imoveis = result.records.map(record => record.get(0).properties);
+
+        return imoveis;
+    }
+
+    public async get(uuid: string): Promise<IImovelModel> {
+        const result = await session.run(
+            'MATCH (i: Imovel {uuid: $uuid}) RETURN i',
+            { uuid },
+        );
+
+        const imovel = result.records[0]?.get(0).properties;
+        return imovel;
     }
 }
