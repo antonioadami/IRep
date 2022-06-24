@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
 
 class ButtonPattern extends StatelessWidget {
-  String label;
+  dynamic label;
   void Function()? onTap;
 
   ButtonPattern({
@@ -19,14 +19,16 @@ class ButtonPattern extends StatelessWidget {
         width: double.infinity,
         height: 51,
         alignment: Alignment.center,
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            fontSize: 16,
-          ),
-        ),
+        child: label is String
+            ? Text(
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              )
+            : label,
         decoration: BoxDecoration(
             color: Color(primaryColorRed),
             borderRadius: BorderRadius.circular(50)),

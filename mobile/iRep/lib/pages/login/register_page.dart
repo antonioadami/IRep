@@ -12,17 +12,31 @@ import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   RegisterPage({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController controllerNome = TextEditingController();
+
   TextEditingController controllerCpf = TextEditingController();
+
   TextEditingController controllerData = TextEditingController();
+
   TextEditingController controllerEmail = TextEditingController();
+
   TextEditingController controllerSenha = TextEditingController();
+
   TextEditingController controllerRepetirSenha = TextEditingController();
+
   TextEditingController controllerTelefone = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +88,11 @@ class RegisterPage extends StatelessWidget {
 
                           try {
                             DateTime date = DateTime(year, month, day);
+                            if (date.year != year ||
+                                date.month != month ||
+                                date.day != date.day) {
+                              return 'Data Inválida';
+                            }
                             return null;
                           } catch (_) {
                             return 'Data Inválida';
@@ -136,9 +155,21 @@ class RegisterPage extends StatelessWidget {
                       ),
                       defaultSpacingInline,
                       ButtonPattern(
-                          label: 'Cadastrar-se',
+                          label: isLoading
+                              ? const SizedBox(
+                                  height: 16,
+                                  width: 16,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : 'Cadastrar-se',
                           onTap: () async {
-                            if (_formKey.currentState!.validate()) { 
+                            if (!isLoading &&
+                                _formKey.currentState!.validate()) {
+                              setState(() {
+                                isLoading = true;
+                              });
                               _formKey.currentState!.save();
                               var result = await loginViewModel.registerUser(
                                 cpf: controllerCpf.text,
@@ -153,6 +184,9 @@ class RegisterPage extends StatelessWidget {
                               }, (success) {
                                 succesSnackbar(context, success);
                                 Navigator.pop(context);
+                              });
+                              setState(() {
+                                isLoading = false;
                               });
                             }
                           }),

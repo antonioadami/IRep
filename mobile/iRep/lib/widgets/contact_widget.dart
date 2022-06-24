@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irep/enums/contact_type_enum.dart';
 import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/models/contact_model.dart';
 

@@ -22,4 +22,15 @@ class LoginService {
       telefone: telefone,
     );
   }
+
+  Future<Either<ErrorModel, SuccessModel>> handleLogin({
+    required String email,
+    required String senha,
+  }) async {
+    return await datasource.handleLogin(email: email, senha: senha);
+  }
+
+  Future<Either<ErrorModel, SuccessModel>> getUserInformation() async {
+    return await datasource.getUserInformation();
+  }
 }

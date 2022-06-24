@@ -3,6 +3,7 @@ import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/models/residence_model.dart';
 import 'package:irep/routes/name_routes.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
+import 'package:irep/widgets/avatar_default.dart';
 import 'package:irep/widgets/text_button_pattern.dart';
 import 'package:provider/src/provider.dart';
 
@@ -43,19 +44,18 @@ class AppBarWidget extends StatelessWidget {
             child: viewModel.user != null && !isPerfilPage
                 ? Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      image: DecorationImage(
-                        image: AssetImage(viewModel.user!.photo!),
-                        fit: BoxFit.cover,
-                      ),
+                        borderRadius: BorderRadius.circular(50),
+                        color: Color(primaryColorRed)),
+                    child: AvatarDefault(
+                      photo: viewModel.user!.photo,
+                      name: viewModel.user!.nome!,
                     ),
-                    child: null,
                   )
                 : isPerfilPage
                     ? TextButtonPattern(
                         label: 'Sair',
                         color: Colors.white,
-                        onTap: () {
+                        onTap: () async {
                           viewModel.logOut();
                           Navigator.pop(context);
                         },

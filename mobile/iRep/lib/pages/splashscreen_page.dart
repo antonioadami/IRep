@@ -33,7 +33,7 @@ class SplashScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SplashScreenView(
-      navigateRoute: const LoginPage(),
+      navigateRoute: LoginPage(),
       duration: 3000,
       imageSize: 500,
       imageSrc: "assets/images/irep_logo.png",

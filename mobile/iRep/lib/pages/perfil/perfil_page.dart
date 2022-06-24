@@ -3,6 +3,7 @@ import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
+import 'package:irep/widgets/avatar_default.dart';
 import 'package:irep/widgets/contact_widget.dart';
 import 'package:provider/src/provider.dart';
 
@@ -26,34 +27,25 @@ class PerfilPage extends StatelessWidget {
                 AppBarWidget(isPerfilPage: true),
                 const SizedBox(height: 50),
                 Container(
-                  padding: const EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(50),
-                    height: 250,
-                    width: 250,
+                    padding: const EdgeInsets.all(3),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      image: DecorationImage(
-                        image: AssetImage(viewModel.user!.photo!),
-                        fit: BoxFit.cover,
-                      ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    child: null,
-                  ),
-                ),
+                    child: AvatarDefault(
+                      name: viewModel.user?.nome ?? '',
+                      photo: viewModel.user?.photo,
+                      isProfilePage: true,
+                    )),
                 const SizedBox(height: 25),
                 Text(
-                  viewModel.user!.name!,
+                  viewModel.user!.nome!,
                   style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                ...viewModel.user!.contacts!
+                ...viewModel.user!.contacts
                     .map((contact) => ContactWidget(contact: contact))
                     .toList(),
               ],
