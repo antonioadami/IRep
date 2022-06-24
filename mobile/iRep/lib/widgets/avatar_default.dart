@@ -33,7 +33,7 @@ class AvatarDefault extends StatelessWidget {
             width: 250,
             child: Center(
               child: Text(
-                name[0],
+                name.isEmpty ? '' : name[0],
                 style: TextStyle(
                   color: isProfilePage ? Color(primaryColorRed) : Colors.white,
                   fontWeight: FontWeight.bold,

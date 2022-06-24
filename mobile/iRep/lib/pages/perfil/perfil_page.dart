@@ -39,15 +39,16 @@ class PerfilPage extends StatelessWidget {
                     )),
                 const SizedBox(height: 25),
                 Text(
-                  viewModel.user!.nome!,
+                  viewModel.user?.nome! ?? '',
                   style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                ...viewModel.user!.contacts
-                    .map((contact) => ContactWidget(contact: contact))
-                    .toList(),
+                if (viewModel.user != null)
+                  ...viewModel.user!.contacts
+                      .map((contact) => ContactWidget(contact: contact))
+                      .toList(),
               ],
             ),
           ),
