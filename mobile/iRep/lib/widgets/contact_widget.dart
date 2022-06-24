@@ -13,15 +13,17 @@ class ContactWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            alignment: Alignment.centerRight,
-            width: 75,
-            child: Icon(
-              contact.type!.icon,
-              color: Color(primaryColorRed),
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Icon(
+                contact.type!.icon,
+                color: Color(primaryColorRed),
+              ),
             ),
           ),
           Expanded(
+            flex: 4,
             child: Padding(
               padding: const EdgeInsets.only(left: 35),
               child: Text(

@@ -182,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               result.fold((error) {
                                 errorSnackbar(context, error);
                               }, (success) {
-                                succesSnackbar(context, success);
+                                successSnackbar(context, success);
                                 Navigator.pop(context);
                               });
                               setState(() {

@@ -22,21 +22,31 @@ class _FavoritesPageState extends State<FavoritesPage> {
         child: Column(
           children: [
             AppBarWidget(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
             Row(
               children: const [
                 Text(
-                  'Moradias',
+                  'Favoritos',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 )
               ],
             ),
-            ...viewmodel.residences.map((residence) {
-              if (residence.isFavorite!) {
-                return ResidenceWidget(residence: residence);
-              }
-              return Container();
-            }).toList()
+            const SizedBox(height: 10),
+            SizedBox(
+              height: MediaQuery.of(context).size.height - 236,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ...viewmodel.residences.map((residence) {
+                      if (residence.isFavorite!) {
+                        return ResidenceWidget(residence: residence);
+                      }
+                      return Container();
+                    }).toList(),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

@@ -21,18 +21,28 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(
         children: [
           AppBarWidget(),
-          const SizedBox(height: 50),
+          const SizedBox(height: 40),
           Row(
             children: const [
               Text(
-                'Moradias',
+                'Residências',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               )
             ],
           ),
-          ...viewmodel.residences.map((e) {
-            return ResidenceWidget(residence: e);
-          }).toList()
+          const SizedBox(height: 10),
+          SizedBox(
+            height: MediaQuery.of(context).size.height - 236,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...viewmodel.residences.map((e) {
+                    return ResidenceWidget(residence: e);
+                  }).toList(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

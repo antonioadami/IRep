@@ -13,7 +13,7 @@ void errorSnackbar(BuildContext context, ErrorModel error) {
   );
 }
 
-void succesSnackbar(BuildContext context, SuccessModel success) {
+void successSnackbar(BuildContext context, SuccessModel success) {
   showTopSnackBar(
     context,
     CustomSnackBar.success(

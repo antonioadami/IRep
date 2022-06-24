@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List<Widget> widgetOptions = const [
     DashboardPage(),
-    AdsPage(),
+    // AdsPage(),
     FavoritesPage(),
     PerfilPage(),
   ];
@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     var viewmodel = context.read<ResidenceViewModel>();
     viewmodel.getResidences();
-    viewmodel.getAdsResidences();
   }
 
   void _onItemTapped(int index) {
@@ -52,23 +51,23 @@ class _HomePageState extends State<HomePage> {
             ),
             label: 'Dashboard',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     _selectedIndex == 1 ? Icons.work : Icons.work_outline,
+          //     color: Color(primaryColorRed),
+          //   ),
+          //   label: 'Meus Anuncios',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
-              _selectedIndex == 1 ? Icons.work : Icons.work_outline,
-              color: Color(primaryColorRed),
-            ),
-            label: 'Meus Anuncios',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 2 ? Icons.star : Icons.star_outline,
+              _selectedIndex == 1 ? Icons.star : Icons.star_outline,
               color: Color(primaryColorRed),
             ),
             label: 'Favoritos',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              _selectedIndex == 3
+              _selectedIndex == 2
                   ? Icons.account_box
                   : Icons.account_box_outlined,
               color: Color(primaryColorRed),
