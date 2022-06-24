@@ -23,6 +23,9 @@ import { RepCardComponent } from './component/Card/card.component';
 import { FavoritesPageComponent } from './page/favorites/favorites.component';
 import { AnnouncePageComponent } from './page/announce/announce.component';
 import { DescriptionPageComponent } from './page/description/description.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { requestInterceptor } from './interceptors/request.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -48,15 +51,24 @@ import { DescriptionPageComponent } from './page/description/description.compone
     CommonModule,
     FontAwesomeModule,
 
+    HttpClientModule,
+
     BrowserAnimationsModule,
 
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: requestInterceptor,
+        multi: true
+    }
+]
 })
 export class AppModule { }
