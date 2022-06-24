@@ -18,4 +18,8 @@ export class AdvertService {
     return this.http.get<ModelAdvert[]>(API_URL + 'imovel');
   }
 
+  createAdvert(advert: ModelAdvert): Observable<ModelAdvert> {
+    return this.http.post<ModelAdvert>(API_URL + 'imovel', advert);
+  }
+
 }
