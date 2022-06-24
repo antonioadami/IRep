@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer opened class="w-72" mode="side">
+  <mat-drawer #drawer opened class="w-96" mode="side">
     <div class="grid grid-rows-2 gap-10">
       <div class="text-5xl py-10 flex justify-center">
       <span class="font-serif">IRep</span>
@@ -7,15 +7,15 @@
 
     <div class="flex justify-center">
       <div class="flex flex-col gap-10">
-        <span class="text-2xl flex items-center cursor-pointer" [routerLink]="['/Irep/dashboard']">
+        <span class="text-3xl text-red-600 flex items-center cursor-pointer" [routerLink]="['/Irep/dashboard']">
           <i class="fa fa-home mr-3 text-red-600"></i>
           DashBoard
         </span>
-        <span class="text-2xl flex items-center cursor-pointer" [routerLink]="['/Irep/announce']">
+        <span class="text-3xl text-red-600 flex items-center cursor-pointer" [routerLink]="['/Irep/announce']">
           <i class="fa fa-shopping-bag mr-3 text-red-600"></i>
           Anunciar
         </span>
-        <span class="text-2xl flex items-center cursor-pointer" [routerLink]="['/Irep/favorites']">
+        <span class="text-3xl text-red-600 flex items-center cursor-pointer" [routerLink]="['/Irep/favorites']">
           <i class="fa fa-star mr-3 text-red-600" aria-hidden="true"></i>
           Favoritos
         </span>

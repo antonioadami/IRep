@@ -1,5 +1,7 @@
+import { ModelAdvert } from './../../services/advert/Type/modelAdvert';
 import { adverts, IAdverts } from './../../utils/adverts';
 import { Component, OnInit } from '@angular/core';
+import { AdvertService } from 'src/app/services/advert/advert.service';
 
 @Component({
   selector: 'app-adverts',
@@ -7,11 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvertsPageComponent implements OnInit {
 
-  adverts: IAdverts[] = adverts.advertsTypes();
+  advert: IAdverts[] = adverts.advertsTypes();
 
-  constructor() { }
+  adverts: ModelAdvert[] = [];
+
+  constructor(
+    private _advert: AdvertService,
+  ) { }
 
   ngOnInit(): void {
+    this._advert.getAdvert().subscribe(adverts => {
+      this.adverts = adverts;
+      console.log(this.adverts);
+    })
+
   }
 
 }

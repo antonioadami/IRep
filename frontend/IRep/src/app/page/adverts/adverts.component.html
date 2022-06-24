@@ -1,12 +1,18 @@
 
-<div class="bg-gray-200 w-screen h-screen pb-5">
+<div class="bg-gray-200 w-full h-screen pb-5">
   <div class="text-3xl p-5 ml-5 mb-10">
     Moradias
   </div>
 
-  <div class="grid grid-cols-3 justify-items-center gap-10 cursor-pointer">
-    <ng-container *ngFor="let advert of adverts">
+  <div class="grid grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 justify-items-center gap-10 cursor-pointer ">
+    <!-- <ng-container *ngFor="let advert of advert">
       <rep-card [advert]="advert" [routerLink]="['/Irep/description/' + advert.id]"></rep-card>
+    </ng-container> -->
+  </div>
+
+  <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 justify-items-center gap-10 cursor-pointer ">
+    <ng-container *ngFor="let advert of adverts">
+      <rep-card [advert]="advert" [routerLink]="['/Irep/description/' + advert.uuid]"></rep-card>
     </ng-container>
   </div>
 
