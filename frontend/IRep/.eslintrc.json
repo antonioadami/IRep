@@ -26,7 +26,7 @@
         "prefer-const": 1,
         "max-len": [
           1,
-          120,
+          150,
           { "ignoreTemplateLiterals": true, "ignoreTrailingComments": true }
         ],
         "arrow-parens": [0, "as-needed"],
@@ -42,6 +42,7 @@
         "no-return-assign": 0,
         "curly": "off",
         "no-useless-escape": 0,
+        "@typescript-eslint/no-unused-expressions":"off",
         "no-cond-assign": 0,
         "no-loop-func": 0,
         "no-multiple-empty-lines": ["warn", { "maxEOF": 1, "max": 1 }],
