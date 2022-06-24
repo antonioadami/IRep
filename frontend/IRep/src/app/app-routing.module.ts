@@ -6,7 +6,7 @@ import { DescriptionPageComponent } from './page/description/description.compone
 import { FavoritesPageComponent } from './page/favorites/favorites.component';
 import { ForgotPassComponent } from './page/forgotPass/forgotPass.component';
 import { HomeComponent } from './page/home.component';
-import { LoginComponent } from './page/Login/login.component';
+import { LoginComponent } from './page/login/login.component';
 import { RegisterComponent } from './page/register/register.component';
 
 const routes: Routes = [

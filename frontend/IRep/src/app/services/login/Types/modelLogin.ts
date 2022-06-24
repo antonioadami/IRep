@@ -1,4 +1,4 @@
 export interface ModelLogin {
-  email: string;
-  password: string;
+  usuario: string;
+  senha: string;
 }

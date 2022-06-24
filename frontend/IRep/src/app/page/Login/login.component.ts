@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
 
+const key = 'authToken';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,13 +37,14 @@ export class LoginComponent implements OnInit {
       return;
     }
     const login = {
-      email: email,
-      password: pass,
+      usuario: email,
+      senha: pass,
     }
 
-    this._login.login(login).subscribe(ret => {
-      if(ret) this._route.navigate(['/Irep/dashboard'])
-    });
+    this._login.login(login);
+    if(!!window.localStorage.getItem(key)){
+      this._route.navigate(['/Irep/dashboard'])
+    }
 
 
   }
