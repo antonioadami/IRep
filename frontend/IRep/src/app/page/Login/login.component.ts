@@ -27,15 +27,13 @@ export class LoginComponent implements OnInit {
   }
 
   connectUser(): void {
+    if(this.loginForm.invalid){
+      this.loginForm.markAllAsTouched();
+      return;
+    }
     const email = this.loginForm.get('email').value;
     const pass = this.loginForm.get('pass').value;
 
-    if(this.loginForm.invalid){
-      this.loginForm.markAllAsTouched();
-      console.log('aqui');
-
-      return;
-    }
     const login = {
       usuario: email,
       senha: pass,

@@ -1,53 +1,73 @@
-<div class="w-screen h-screen flex justify-center items-center bg-gray-100 grid lg:grid-cols-11 md:grid-cols-9 sm:grid-cols-7">
+<div
+  class="w-screen h-screen flex justify-center items-center bg-gray-100 grid lg:grid-cols-10 md:grid-cols-8 sm:grid-cols-6">
   <div class="bg-white shadow-2xl rounded-3xl border-2 border-black grid justify-items-center px-16 h-auto
-    col-start-5 col-span-3"
-    >
+    col-start-3 col-span-6">
     <div class="text-5xl py-10">
       <span class="font-serif">IRep</span>
     </div>
 
-    <form class="w-full" [formGroup]="registerForm">
+    <form class="w-full grid grid-cols-2 gap-7" [formGroup]="registerForm">
       <!-- Name -->
-      <div class="flex flex-col my-8">
+      <div class="flex flex-col my-4">
         <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
-          <input matInput data-test="input-name">
-          <!-- <mat-icon svgIcon="heroicons_solid:mail"></mat-icon> -->
+          <input matInput type="text" [formControlName]="'nome'">
+          <mat-error class="text-base"
+            *ngIf="registerForm.get('nome').hasError('required') && (registerForm.get('nome').dirty || registerForm.get('nome').touched)">
+            Nome é obrigatório</mat-error>
         </mat-form-field>
       </div>
-      <div class="flex flex-col my-8">
+      <div class="flex flex-col my-4">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input type="email" matInput data-test="input-email">
-          <!-- <mat-icon svgIcon="heroicons_solid:mail"></mat-icon> -->
+          <input matInput type="email" [formControlName]="'email'">
+          <mat-error class="text-base"
+            *ngIf="registerForm.get('email').hasError('required') && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+            Email é obrigatório</mat-error>
         </mat-form-field>
       </div>
-      <div class="flex flex-col my-8">
+      <div class="flex flex-col my-4">
         <mat-form-field appearance="outline">
           <mat-label>CPF</mat-label>
-          <input matInput type="password" placeholder="" data-test="input-password">
-          <mat-icon matSuffix></mat-icon>
+          <input placeholder="***.***.***-**" matInput type="text" [formControlName]="'cpf'">
+          <mat-error class="text-base"
+            *ngIf="registerForm.get('cpf').hasError('required') && (registerForm.get('cpf').dirty || registerForm.get('cpf').touched)">
+            CPF é obrigatório</mat-error>
         </mat-form-field>
       </div>
-      <div class="flex flex-col my-8">
+      <div class="flex flex-col my-4">
         <mat-form-field appearance="outline">
           <mat-label>Nascimento</mat-label>
-          <input matInput type="password" placeholder="" data-test="input-password">
-          <mat-icon matSuffix></mat-icon>
+          <input matInput type="date" [formControlName]="'data'">
+          <mat-error class="text-base"
+            *ngIf="registerForm.get('data').hasError('required') && (registerForm.get('data').dirty || registerForm.get('data').touched)">
+            Data é obrigatório</mat-error>
         </mat-form-field>
       </div>
-      <div class="flex flex-col my-8">
+      <div class="flex flex-col my-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone</mat-label>
+          <input matInput type="number" [formControlName]="'telefone'">
+          <mat-error class="text-base"
+            *ngIf="registerForm.get('telefone').hasError('required') && (registerForm.get('telefone').dirty || registerForm.get('telefone').touched)">
+            Telefone é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col my-4">
         <mat-form-field appearance="outline">
           <mat-label>Senha</mat-label>
-          <input matInput type="password" placeholder="" data-test="input-password">
-          <mat-icon matSuffix></mat-icon>
+          <input matInput type="password" [formControlName]="'senha'">
+          <mat-error class="text-base"
+            *ngIf="registerForm.get('senha').hasError('required') && (registerForm.get('senha').dirty || registerForm.get('senha').touched)">
+            Senha é obrigatório</mat-error>
         </mat-form-field>
       </div>
     </form>
 
-    <div class="w-full flex flex-col grid justify-items-center">
-      <button class="bg-red-600 rounded-2xl text-white h-12 w-full">Cadastrar-se</button>
-      <button class="text-red-600 my-6 px-6 py-1 border-2 border-red-600 rounded-2xl" [routerLink]="['/login']">Voltar</button>
+    <div class="w-full flex flex-col grid justify-items-center mt-3">
+      <button class="bg-red-600 rounded-2xl text-white h-12 px-32" (click)="registerPerson()">Cadastrar-se</button>
+      <button class="text-red-600 my-6 px-10 py-1 border-2 border-red-600 rounded-2xl"
+        [routerLink]="['/login']">Voltar</button>
     </div>
   </div>
 </div>
