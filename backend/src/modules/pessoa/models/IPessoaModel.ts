@@ -4,4 +4,5 @@ export default interface IPessoaModel {
     nome: string;
     dataNascimento: string;
     email: string;
+    telefone: string;
 }
