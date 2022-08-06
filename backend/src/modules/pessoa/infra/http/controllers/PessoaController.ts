@@ -21,22 +21,23 @@ export default class PessoaController {
             throw new AppError('Dados faltantes');
         }
 
-        const dataNasc = dataNascimento;
-
-        const pessoa = await createPessoaService.execute({
+        await createPessoaService.execute({
             cpf,
-            dataNascimento: dataNasc,
+            dataNascimento,
             email,
             nome,
             telefone,
         });
 
-        await createCadastroService.execute({
-            usuario: email,
+        const ans = await createCadastroService.execute({
+            dataNascimento,
+            email,
+            nome,
             senha,
+            telefone,
         });
 
-        return response.status(200).json(pessoa);
+        return response.status(200).json(ans);
     }
 
     public async get(request: Request, response: Response): Promise<Response> {
