@@ -3,6 +3,7 @@ import {
     CognitoUserAttribute,
     CognitoUser,
     ISignUpResult,
+    CodeDeliveryDetails,
 } from 'amazon-cognito-identity-js';
 
 import ICreateCadastroDTO from 'modules/pessoa/dtos/ICreateCadastroDTO';
@@ -105,5 +106,25 @@ export default class CognitoProvider implements IAuthProvider {
         });
 
         await Promise.resolve(verify);
+    }
+
+    public async resendCode(email: string): Promise<CodeDeliveryDetails> {
+        const cognitoUser = new CognitoUser({
+            Username: email,
+            Pool: this.userPool,
+        });
+
+        const verify = new Promise((resolve, reject) => {
+            cognitoUser.resendConfirmationCode((err, result) => {
+                if (err) {
+                    reject(new AppError(err.message || JSON.stringify(err)));
+                }
+                resolve(result);
+            });
+        });
+
+        const ans = (await Promise.resolve(verify)) as CodeDeliveryDetails;
+
+        return ans;
     }
 }

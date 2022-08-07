@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import ResendCodeService from '../../../services/ResendCodeService';
 import VerifyService from '../../../services/VerifyService';
 import LoginService from '../../../services/LoginService';
 
@@ -37,5 +38,21 @@ export default class AuthController {
         await verifyService.execute({ email, code });
 
         return response.status(200).json();
+    }
+
+    public async resendCode(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const resendCodeService = container.resolve(ResendCodeService);
+        const { email } = request.body;
+
+        if (!email) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const ans = await resendCodeService.execute(email);
+
+        return response.status(200).json(ans);
     }
 }
