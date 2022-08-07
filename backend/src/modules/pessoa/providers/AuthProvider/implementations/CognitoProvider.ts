@@ -4,6 +4,7 @@ import {
     CognitoUser,
     ISignUpResult,
     CodeDeliveryDetails,
+    AuthenticationDetails,
 } from 'amazon-cognito-identity-js';
 
 import ICreateCadastroDTO from 'modules/pessoa/dtos/ICreateCadastroDTO';
@@ -29,7 +30,36 @@ export default class CognitoProvider implements IAuthProvider {
     }
 
     public async signIn(user: string, password: string): Promise<string> {
-        throw new Error('Method not implemented.');
+        const authenticationDetails = new AuthenticationDetails({
+            Username: user,
+            Password: password,
+        });
+
+        const cognitoUser = new CognitoUser({
+            Username: user,
+            Pool: this.userPool,
+        });
+
+        const signIn = new Promise((resolve, reject) => {
+            cognitoUser.authenticateUser(authenticationDetails, {
+                onSuccess(result) {
+                    console.log('sucesso');
+
+                    const accessToken = result.getAccessToken().getJwtToken();
+                    resolve(accessToken);
+                },
+                onFailure(err) {
+                    reject(new AppError(err.message || JSON.stringify(err)));
+                },
+                mfaRequired(err) {
+                    reject(new AppError(err || JSON.stringify(err)));
+                },
+            });
+        });
+
+        const ans = (await Promise.resolve(signIn)) as string;
+
+        return ans;
     }
 
     public async signUp(
