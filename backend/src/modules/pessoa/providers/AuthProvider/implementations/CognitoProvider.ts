@@ -1,10 +1,12 @@
 import {
     CognitoUserPool,
     CognitoUserAttribute,
+    CognitoUser,
     ISignUpResult,
 } from 'amazon-cognito-identity-js';
 
 import ICreateCadastroDTO from 'modules/pessoa/dtos/ICreateCadastroDTO';
+import IVerificaCadastroDTO from 'modules/pessoa/dtos/IVerificaCadastroDTO';
 import ISignUpAnswer from 'modules/pessoa/models/ISignUpAnswer';
 import AppError from '../../../../../infra/http/errors/AppError';
 import IAuthProvider from '../models/IAuthProvider';
@@ -85,5 +87,23 @@ export default class CognitoProvider implements IAuthProvider {
             codeDeliveryDetails: ans.codeDeliveryDetails,
             username: ans.user.getUsername(),
         };
+    }
+
+    public async verify(data: IVerificaCadastroDTO): Promise<void> {
+        const cognitoUser = new CognitoUser({
+            Username: data.email,
+            Pool: this.userPool,
+        });
+
+        const verify = new Promise((resolve, reject) => {
+            cognitoUser.confirmRegistration(data.code, true, (err, result) => {
+                if (err) {
+                    reject(new AppError(err.message || JSON.stringify(err)));
+                }
+                resolve(result);
+            });
+        });
+
+        await Promise.resolve(verify);
     }
 }
