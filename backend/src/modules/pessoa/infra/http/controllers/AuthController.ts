@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import ChangePasswordService from '../../../services/ChangePasswordService';
 import ResendCodeService from '../../../services/ResendCodeService';
 import VerifyService from '../../../services/VerifyService';
 import LoginService from '../../../services/LoginService';
@@ -19,9 +20,9 @@ export default class AuthController {
             throw new AppError('Dados faltantes');
         }
 
-        const token = await loginService.execute({ usuario, senha });
+        const ans = await loginService.execute({ usuario, senha });
 
-        return response.status(200).json({ token });
+        return response.status(200).json(ans);
     }
 
     public async verify(
@@ -52,6 +53,27 @@ export default class AuthController {
         }
 
         const ans = await resendCodeService.execute(email);
+
+        return response.status(200).json(ans);
+    }
+
+    public async changePassword(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const changePasswordService = container.resolve(ChangePasswordService);
+        const { newPassword, oldPassword } = request.body;
+        const { accessToken } = request;
+
+        if (!newPassword || !oldPassword) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const ans = await changePasswordService.execute(
+            accessToken,
+            newPassword,
+            oldPassword,
+        );
 
         return response.status(200).json(ans);
     }

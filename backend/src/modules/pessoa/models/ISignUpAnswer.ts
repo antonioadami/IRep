@@ -1,6 +1,6 @@
-import { CodeDeliveryDetails } from 'amazon-cognito-identity-js';
+import { CodeDeliveryDetailsType } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 
 export default interface ISignUpAnswer {
-    codeDeliveryDetails: CodeDeliveryDetails;
+    codeDeliveryDetails: CodeDeliveryDetailsType | undefined;
     username: string;
 }
