@@ -23,7 +23,7 @@ const ensureAuthenticate = (optional = false) => {
             }
 
             const identityServiceProvider = new CognitoIdentityServiceProvider({
-                region: process.env.AWS_REGION,
+                region: process.env.AWS_SERVICE_REGION,
             });
 
             const userPromise = new Promise((resolve, reject) => {

@@ -26,7 +26,7 @@ export default class CognitoProvider implements IAuthProvider {
 
     constructor() {
         this.identityServiceProvider = new CognitoIdentityServiceProvider({
-            region: process.env.AWS_REGION,
+            region: process.env.AWS_SERVICE_REGION,
         });
     }
 
