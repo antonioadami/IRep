@@ -1,11 +1,12 @@
+import { CognitoIdentityServiceProvider } from 'aws-sdk';
+import { GetUserRequest } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 import { Request, Response, NextFunction } from 'express';
-import { JwtPayload, Secret, verify } from 'jsonwebtoken';
 
 import AppError from '../../../../infra/http/errors/AppError';
 
 const ensureAuthenticate = (optional = false) => {
     // eslint-disable-next-line consistent-return
-    return (request: Request, response: Response, next: NextFunction) => {
+    return async (request: Request, response: Response, next: NextFunction) => {
         const auth = request.headers.authorization;
 
         if (!optional && !auth) {
@@ -21,17 +22,37 @@ const ensureAuthenticate = (optional = false) => {
                 throw new AppError('Invalid JWT token', 401);
             }
 
-            const secret = process.env.JWT_SECRET as Secret;
+            const identityServiceProvider = new CognitoIdentityServiceProvider({
+                region: process.env.AWS_SERVICE_REGION,
+            });
 
-            try {
-                const decoded = verify(token, secret) as JwtPayload;
+            const userPromise = new Promise((resolve, reject) => {
+                const param: GetUserRequest = {
+                    AccessToken: token,
+                };
+                identityServiceProvider.getUser(param, (err, result) => {
+                    if (err) {
+                        return reject(
+                            new AppError(err.message || JSON.stringify(err)),
+                        );
+                    }
 
-                request.user = { uuid: decoded.uuid as string };
+                    let email = null;
 
-                return next();
-            } catch {
-                throw new AppError('Invalid JWT token', 401);
-            }
+                    result.UserAttributes.forEach(att => {
+                        if (att.Name === 'email') {
+                            email = att.Value;
+                        }
+                    });
+
+                    return resolve(email);
+                });
+            });
+
+            const userEmail = (await Promise.resolve(userPromise)) as string;
+
+            request.userEmail = userEmail;
+            request.accessToken = token;
         }
 
         next();

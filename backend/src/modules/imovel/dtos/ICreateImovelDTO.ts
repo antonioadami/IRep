@@ -2,7 +2,7 @@ import ICreateEnderecoDTO from './ICreateEnderecoDTO';
 
 export default interface ICreateImovelDTO {
     uuid?: string;
-    pessoaUuid: string;
+    userEmail: string;
     nome: string;
     quartos: number;
     banheiros: number;

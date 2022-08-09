@@ -1,4 +1,7 @@
 export default interface ICreateCadastroDTO {
-    usuario: string;
+    email: string;
     senha: string;
+    nome: string;
+    dataNascimento: string;
+    telefone: string;
 }
