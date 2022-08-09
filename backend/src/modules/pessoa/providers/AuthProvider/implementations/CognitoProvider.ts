@@ -3,6 +3,8 @@ import {
     ChangePasswordRequest,
     ChangePasswordResponse,
     ConfirmSignUpRequest,
+    ForgotPasswordRequest,
+    ForgotPasswordResponse,
     InitiateAuthRequest,
     ResendConfirmationCodeRequest,
     ResendConfirmationCodeResponse,
@@ -188,6 +190,34 @@ export default class CognitoProvider implements IAuthProvider {
         const ans = (await Promise.resolve(
             changePassword,
         )) as ChangePasswordResponse;
+
+        return ans;
+    }
+
+    public async forgotPassword(user: string): Promise<ForgotPasswordResponse> {
+        const params: ForgotPasswordRequest = {
+            ClientId: process.env.AWS_COGNITO_CLIENT_ID as string,
+            Username: user,
+        };
+
+        const changePassword = new Promise((resolve, reject) => {
+            this.identityServiceProvider.forgotPassword(
+                params,
+                (err, result) => {
+                    if (err) {
+                        return reject(
+                            new AppError(err.message || JSON.stringify(err)),
+                        );
+                    }
+
+                    return resolve(result);
+                },
+            );
+        });
+
+        const ans = (await Promise.resolve(
+            changePassword,
+        )) as ForgotPasswordResponse;
 
         return ans;
     }

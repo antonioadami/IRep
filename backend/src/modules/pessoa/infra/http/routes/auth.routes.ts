@@ -14,5 +14,6 @@ authRouter.post(
     ensureAuthenticate(),
     authController.changePassword,
 );
+authRouter.post('/forgotPassword', authController.forgotPassword);
 
 export default authRouter;

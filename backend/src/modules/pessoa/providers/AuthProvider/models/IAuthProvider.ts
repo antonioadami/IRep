@@ -1,5 +1,6 @@
 import {
     ChangePasswordResponse,
+    ForgotPasswordResponse,
     ResendConfirmationCodeResponse,
 } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 import ICreateCadastroDTO from 'modules/pessoa/dtos/ICreateCadastroDTO';
@@ -17,4 +18,5 @@ export default interface IAuthProvider {
         oldPassword: string,
         newPassword: string,
     ): Promise<ChangePasswordResponse>;
+    forgotPassword(user: string): Promise<ForgotPasswordResponse>;
 }
