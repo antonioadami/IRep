@@ -15,7 +15,7 @@ export default class ImovelController {
     ): Promise<Response> {
         const createImovelService = container.resolve(CreateImovelService);
 
-        const user = request.user.uuid;
+        const { userEmail } = request;
 
         const data = request.body as ICreateImovelDTO;
 
@@ -36,7 +36,7 @@ export default class ImovelController {
             throw new AppError('Dados faltantes');
         }
 
-        const imovel = await createImovelService.execute(data, user);
+        const imovel = await createImovelService.execute(data, userEmail);
 
         return response.status(200).json(imovel);
     }
@@ -52,7 +52,7 @@ export default class ImovelController {
     public async get(request: Request, response: Response): Promise<Response> {
         const getImovelService = container.resolve(GetImovelService);
 
-        const { user } = request;
+        const { userEmail } = request;
 
         const { uuid } = request.params;
 
@@ -60,7 +60,7 @@ export default class ImovelController {
             throw new AppError('Dados faltantes');
         }
 
-        const imovel = await getImovelService.execute(uuid, user?.uuid);
+        const imovel = await getImovelService.execute(uuid, userEmail);
 
         return response.status(200).json(imovel);
     }

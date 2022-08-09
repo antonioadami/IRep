@@ -41,11 +41,11 @@ export default class PessoaController {
     }
 
     public async get(request: Request, response: Response): Promise<Response> {
-        const { uuid } = request.user;
+        const { userEmail } = request;
 
         const getPessoaService = container.resolve(GetPessoaService);
 
-        const pessoa = await getPessoaService.execute(uuid);
+        const pessoa = await getPessoaService.execute(userEmail);
 
         return response.status(200).json(pessoa);
     }

@@ -1,3 +1,5 @@
+import { CognitoIdentityServiceProvider } from 'aws-sdk';
+import { GetUserRequest } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 import { Request, Response, NextFunction } from 'express';
 
 import AppError from '../../../../infra/http/errors/AppError';
@@ -20,6 +22,36 @@ const ensureAuthenticate = (optional = false) => {
                 throw new AppError('Invalid JWT token', 401);
             }
 
+            const identityServiceProvider = new CognitoIdentityServiceProvider({
+                region: process.env.AWS_REGION,
+            });
+
+            const userPromise = new Promise((resolve, reject) => {
+                const param: GetUserRequest = {
+                    AccessToken: token,
+                };
+                identityServiceProvider.getUser(param, (err, result) => {
+                    if (err) {
+                        return reject(
+                            new AppError(err.message || JSON.stringify(err)),
+                        );
+                    }
+
+                    let email = null;
+
+                    result.UserAttributes.forEach(att => {
+                        if (att.Name === 'email') {
+                            email = att.Value;
+                        }
+                    });
+
+                    return resolve(email);
+                });
+            });
+
+            const userEmail = (await Promise.resolve(userPromise)) as string;
+
+            request.userEmail = userEmail;
             request.accessToken = token;
         }
 

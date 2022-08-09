@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '../../../infra/http/errors/AppError';
 
 import ILoginDTO from '../dtos/ILoginDTO';
+import ICadastroModel from '../models/ICadastroModel';
 
 import IAuthProvider from '../providers/AuthProvider/models/IAuthProvider';
 
@@ -14,17 +15,15 @@ export default class LoginService {
         private authProvider: IAuthProvider,
     ) {}
 
-    public async execute({ usuario, senha }: ILoginDTO): Promise<string> {
+    public async execute({
+        usuario,
+        senha,
+    }: ILoginDTO): Promise<ICadastroModel> {
         const ans = await this.authProvider.signIn(usuario, senha);
 
         if (!ans) {
             throw new AppError('Usuário ou senha inválido');
         }
-
-        // const token = sign(
-        //     { uuid: cadastro.uuid },
-        //     process.env.JWT_SECRET as string,
-        // );
 
         return ans;
     }
