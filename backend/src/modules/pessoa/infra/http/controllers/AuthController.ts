@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import ConfirmForgotPasswordService from '../../../services/ConfirmForgotPasswordService';
 import ForgotPasswordService from '../../../services/ForgotPasswordService';
 import ChangePasswordService from '../../../services/ChangePasswordService';
 import ResendCodeService from '../../../services/ResendCodeService';
@@ -91,6 +92,28 @@ export default class AuthController {
         }
 
         const ans = await forgotPasswordService.execute(email);
+
+        return response.status(200).json(ans);
+    }
+
+    public async confirmForgotPassword(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const confirmForgotPasswordService = container.resolve(
+            ConfirmForgotPasswordService,
+        );
+        const { email, password, code } = request.body;
+
+        if (!email || !password || !code) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const ans = await confirmForgotPasswordService.execute(
+            email,
+            password,
+            code,
+        );
 
         return response.status(200).json(ans);
     }

@@ -2,6 +2,8 @@ import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import {
     ChangePasswordRequest,
     ChangePasswordResponse,
+    ConfirmForgotPasswordRequest,
+    ConfirmForgotPasswordResponse,
     ConfirmSignUpRequest,
     ForgotPasswordRequest,
     ForgotPasswordResponse,
@@ -218,6 +220,40 @@ export default class CognitoProvider implements IAuthProvider {
         const ans = (await Promise.resolve(
             changePassword,
         )) as ForgotPasswordResponse;
+
+        return ans;
+    }
+
+    public async confirmForgotPassword(
+        user: string,
+        password: string,
+        code: string,
+    ): Promise<ConfirmForgotPasswordResponse> {
+        const params: ConfirmForgotPasswordRequest = {
+            ClientId: process.env.AWS_COGNITO_CLIENT_ID as string,
+            Username: user,
+            Password: password,
+            ConfirmationCode: code,
+        };
+
+        const changePassword = new Promise((resolve, reject) => {
+            this.identityServiceProvider.confirmForgotPassword(
+                params,
+                (err, result) => {
+                    if (err) {
+                        return reject(
+                            new AppError(err.message || JSON.stringify(err)),
+                        );
+                    }
+
+                    return resolve(result);
+                },
+            );
+        });
+
+        const ans = (await Promise.resolve(
+            changePassword,
+        )) as ConfirmForgotPasswordResponse;
 
         return ans;
     }

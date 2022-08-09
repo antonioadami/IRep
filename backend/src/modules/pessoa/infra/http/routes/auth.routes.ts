@@ -15,5 +15,6 @@ authRouter.post(
     authController.changePassword,
 );
 authRouter.post('/forgotPassword', authController.forgotPassword);
+authRouter.post('/confirmForgotPassword', authController.confirmForgotPassword);
 
 export default authRouter;

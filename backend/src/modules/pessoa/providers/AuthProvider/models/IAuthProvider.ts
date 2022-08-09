@@ -1,5 +1,6 @@
 import {
     ChangePasswordResponse,
+    ConfirmForgotPasswordResponse,
     ForgotPasswordResponse,
     ResendConfirmationCodeResponse,
 } from 'aws-sdk/clients/cognitoidentityserviceprovider';
@@ -19,4 +20,9 @@ export default interface IAuthProvider {
         newPassword: string,
     ): Promise<ChangePasswordResponse>;
     forgotPassword(user: string): Promise<ForgotPasswordResponse>;
+    confirmForgotPassword(
+        user: string,
+        password: string,
+        code: string,
+    ): Promise<ConfirmForgotPasswordResponse>;
 }
