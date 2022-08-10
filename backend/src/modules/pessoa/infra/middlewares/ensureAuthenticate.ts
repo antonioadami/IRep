@@ -2,7 +2,7 @@ import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import { GetUserRequest } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 import { Request, Response, NextFunction } from 'express';
 
-import AppError from '../../../../infra/http/errors/AppError';
+import AppError from '../../../../shared/errors/AppError';
 
 const ensureAuthenticate = (optional = false) => {
     // eslint-disable-next-line consistent-return

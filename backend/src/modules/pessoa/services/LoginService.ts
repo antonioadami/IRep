@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 // import { sign } from 'jsonwebtoken';
 
-import AppError from '../../../infra/http/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 
 import ILoginDTO from '../dtos/ILoginDTO';
 import ICadastroModel from '../models/ICadastroModel';

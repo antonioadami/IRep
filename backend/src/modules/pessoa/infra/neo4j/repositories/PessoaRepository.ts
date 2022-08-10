@@ -1,4 +1,4 @@
-import session from '../../../../../infra/neo4j-driver/index';
+import session from '../../../../../shared/infra/neo4j-driver/index';
 import ICreatePessoaDTO from '../../../dtos/ICreatePessoaDTO';
 import IPessoaModel from '../../../models/IPessoaModel';
 import IPessoasRepository from '../../../repositories/IPessoaRepository';

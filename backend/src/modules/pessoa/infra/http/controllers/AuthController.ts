@@ -8,7 +8,7 @@ import ResendCodeService from '../../../services/ResendCodeService';
 import VerifyService from '../../../services/VerifyService';
 import LoginService from '../../../services/LoginService';
 
-import AppError from '../../../../../infra/http/errors/AppError';
+import AppError from '../../../../../shared/errors/AppError';
 
 export default class AuthController {
     public async login(

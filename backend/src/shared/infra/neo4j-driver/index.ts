@@ -1,5 +1,5 @@
 import neo4j from 'neo4j-driver';
-import AppError from '../http/errors/AppError';
+import AppError from '../../errors/AppError';
 
 if (
     !process.env.NEO4J_URL ||

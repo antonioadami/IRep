@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 import GetPessoaService from '../../../services/GetPessoaService';
 import CreateCadastroService from '../../../services/CreateCadastroService';
 import CreatePessoaService from '../../../services/CreatePessoaService';
-import AppError from '../../../../../infra/http/errors/AppError';
+import AppError from '../../../../../shared/errors/AppError';
 
 export default class PessoaController {
     public async create(
