@@ -19,7 +19,7 @@ import IVerificaCadastroDTO from 'modules/pessoa/dtos/IVerificaCadastroDTO';
 import ICadastroModel from 'modules/pessoa/models/ICadastroModel';
 import ISignUpAnswer from 'modules/pessoa/models/ISignUpAnswer';
 import AppError from '../../../../../shared/errors/AppError';
-import IAuthProvider from '../models/IAuthProvider';
+import IAuthProvider from '../IAuthProvider';
 
 export default class CognitoProvider implements IAuthProvider {
     private identityServiceProvider: CognitoIdentityServiceProvider;

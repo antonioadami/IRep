@@ -6,7 +6,7 @@ import AppError from '../../../shared/errors/AppError';
 import ILoginDTO from '../dtos/ILoginDTO';
 import ICadastroModel from '../models/ICadastroModel';
 
-import IAuthProvider from '../providers/AuthProvider/models/IAuthProvider';
+import IAuthProvider from '../providers/AuthProvider/IAuthProvider';
 
 @injectable()
 export default class LoginService {
