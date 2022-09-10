@@ -28,6 +28,10 @@ export default class GetImovelService {
             throw new AppError('Imóvel não encontrado');
         }
 
+        imovel.images = imovel.images.map(
+            image => `${process.env.AWS_BUCKET_URL}/imovel/${image}`,
+        );
+
         if (userEmail) {
             const endereco = await this.enderecoRepository.get(uuid);
             const pessoa = await this.pessoaRepository.getByEmail(userEmail);
