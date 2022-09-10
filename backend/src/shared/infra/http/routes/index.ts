@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import pessoaRouter from '../../../modules/pessoa/infra/http/routes/pessoa.routes';
-import authRouter from '../../../modules/pessoa/infra/http/routes/auth.routes';
-import imovelRouter from '../../../modules/imovel/infra/http/routes/imovel.routes';
+import pessoaRouter from '../../../../modules/pessoa/infra/http/routes/pessoa.routes';
+import authRouter from '../../../../modules/pessoa/infra/http/routes/auth.routes';
+import imovelRouter from '../../../../modules/imovel/infra/http/routes/imovel.routes';
 
 const routes = Router();
 routes.use('/imovel', imovelRouter);

@@ -1,4 +1,4 @@
-import session from '../../../../../infra/neo4j-driver/index';
+import session from '../../../../../shared/infra/neo4j-driver/index';
 
 import ICreateImovelDTO from '../../../dtos/ICreateImovelDTO';
 import IImovelModel from '../../../models/IImovelModel';

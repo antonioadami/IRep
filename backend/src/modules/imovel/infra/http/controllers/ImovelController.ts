@@ -6,7 +6,7 @@ import ListImoveisService from '../../../services/ListImoveisService';
 import GetImovelService from '../../../services/GetImovelService';
 import ICreateImovelDTO from '../../../dtos/ICreateImovelDTO';
 
-import AppError from '../../../../../infra/http/errors/AppError';
+import AppError from '../../../../../shared/errors/AppError';
 
 export default class ImovelController {
     public async create(

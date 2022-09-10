@@ -13,6 +13,10 @@ export default class GetPessoaService {
     public async execute(email: string): Promise<IPessoaModel> {
         const pessoa = await this.pessoaRepository.getByEmail(email);
 
+        if (pessoa.avatarUrl) {
+            pessoa.avatarUrl = `${process.env.AWS_BUCKET_URL}/avatar/${pessoa.avatarUrl}`;
+        }
+
         return pessoa;
     }
 }

@@ -1,5 +1,6 @@
 import { container } from 'tsyringe';
 
+import './providers';
 import '../../modules/pessoa/providers';
 
 import EnderecoRepository from '../../modules/imovel/infra/neo4j/repostories/EnderecoRepository';

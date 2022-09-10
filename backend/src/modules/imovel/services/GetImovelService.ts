@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import AppError from '../../../infra/http/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 import IImovelModel from '../models/IImovelModel';
 
 import IPessoaRepository from '../../pessoa/repositories/IPessoaRepository';

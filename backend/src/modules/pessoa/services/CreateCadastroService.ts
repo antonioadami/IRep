@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import ICreateCadastroDTO from '../dtos/ICreateCadastroDTO';
-import IAuthProvider from '../providers/AuthProvider/models/IAuthProvider';
+import IAuthProvider from '../providers/AuthProvider/IAuthProvider';
 import ISignUpAnswer from '../models/ISignUpAnswer';
 
 @injectable()

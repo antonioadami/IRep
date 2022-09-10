@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import IVerificaCadastroDTO from '../dtos/IVerificaCadastroDTO';
 
-import IAuthProvider from '../providers/AuthProvider/models/IAuthProvider';
+import IAuthProvider from '../providers/AuthProvider/IAuthProvider';
 
 @injectable()
 export default class VerifyService {

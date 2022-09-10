@@ -1,4 +1,4 @@
-import session from '../../../../../infra/neo4j-driver/index';
+import session from '../../../../../shared/infra/neo4j-driver/index';
 import ICreateEnderecoDTO from '../../../dtos/ICreateEnderecoDTO';
 import IEnderecoModel from '../../../models/IEnderecoModel';
 import IEnderecoRepository from '../../../repositories/IEnderecoRepository';
