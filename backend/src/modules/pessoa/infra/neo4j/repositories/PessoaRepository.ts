@@ -39,4 +39,17 @@ export default class PessoasRepository implements IPessoasRepository {
         const Pessoa = result.records[0].get(0).properties;
         return Pessoa;
     }
+
+    public async setAvatar(
+        email: string,
+        avatarUrl: string,
+    ): Promise<IPessoaModel | null> {
+        const result = await session.run(
+            'MATCH(p: Pessoa{email: $email}) SET p.avatarUrl = $avatarUrl RETURN p',
+            { email, avatarUrl },
+        );
+
+        const Pessoa = result.records[0].get(0).properties;
+        return Pessoa;
+    }
 }

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { resolve } from 'path';
 
 import UploadAvatarService from '../../../services/UploadAvatarService';
 import GetPessoaService from '../../../services/GetPessoaService';
@@ -56,7 +55,7 @@ export default class PessoaController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        // const { userEmail } = request;
+        const { userEmail } = request;
 
         const { file } = request;
 
@@ -65,7 +64,7 @@ export default class PessoaController {
         }
 
         const uploadAvatarService = container.resolve(UploadAvatarService);
-        await uploadAvatarService.execute(file.filename);
+        await uploadAvatarService.execute(file.filename, userEmail);
 
         return response.status(200).json();
     }

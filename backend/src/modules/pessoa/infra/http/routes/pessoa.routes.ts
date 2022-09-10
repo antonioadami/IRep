@@ -18,11 +18,6 @@ pessoaRouter.post(
     upload.single('file'),
     pessoaController.uploadAvatar,
 );
-pessoaRouter.get(
-    '/',
-    ensureAuthenticate(),
-
-    pessoaController.get,
-);
+pessoaRouter.get('/', ensureAuthenticate(), pessoaController.get);
 
 export default pessoaRouter;
