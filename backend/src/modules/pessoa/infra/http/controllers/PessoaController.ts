@@ -67,7 +67,7 @@ export default class PessoaController {
         const uploadAvatarService = container.resolve(UploadAvatarService);
         await uploadAvatarService.execute(file.filename, userEmail);
 
-        return response.status(200).json();
+        return response.status(204).json();
     }
 
     public async deleteAvatar(

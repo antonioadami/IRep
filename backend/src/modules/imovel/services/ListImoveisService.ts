@@ -13,6 +13,15 @@ export default class ListImoveisService {
     public async execute(): Promise<IImovelModel[]> {
         const imoveis = await this.imovelRepository.list();
 
+        imoveis.map(imovel => {
+            const imovelAux = imovel;
+            imovelAux.images = imovel.images.map(
+                image => `${process.env.AWS_BUCKET_URL}/imovel/${image}`,
+            );
+
+            return imovelAux;
+        });
+
         return imoveis;
     }
 }

@@ -10,4 +10,5 @@ export default interface IImovelModel {
     internet: boolean;
     endereco: IEnderecoModel;
     contato: { email: string; telefone: string };
+    images: string[];
 }
