@@ -24,6 +24,7 @@ export default class CreateImovelService {
 
         const imovel = await this.imovelRepository.create({
             ...data,
+            images: [],
             uuid: uuidImovel,
             userEmail,
         });

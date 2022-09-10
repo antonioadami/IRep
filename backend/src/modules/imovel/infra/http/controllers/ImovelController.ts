@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import UploadImageService from '../../../services/UploadImageService';
 import CreateImovelService from '../../../services/CreateImovelService';
 import ListImoveisService from '../../../services/ListImoveisService';
 import GetImovelService from '../../../services/GetImovelService';
@@ -63,5 +64,23 @@ export default class ImovelController {
         const imovel = await getImovelService.execute(uuid, userEmail);
 
         return response.status(200).json(imovel);
+    }
+
+    public async uploadImage(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { uuid } = request.body;
+        const { file } = request;
+        const { userEmail } = request;
+
+        if (!file) {
+            throw new AppError('Um arquivo de imagem deve ser enviado');
+        }
+
+        const uploadImageService = container.resolve(UploadImageService);
+        await uploadImageService.execute(file.filename, userEmail, uuid);
+
+        return response.status(200).json();
     }
 }

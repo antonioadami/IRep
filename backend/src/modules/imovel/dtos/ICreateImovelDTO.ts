@@ -10,4 +10,5 @@ export default interface ICreateImovelDTO {
     gas: boolean;
     internet: boolean;
     endereco: ICreateEnderecoDTO;
+    images: string[];
 }
