@@ -19,9 +19,9 @@ imovelRouter.post(
     upload.single('file'),
     imovelController.uploadImage,
 );
-// imovelRouter.delete(
-//     '/image',
-//     ensureAuthenticate(),
-//     imovelController.deleteAvatar,
-// );
+imovelRouter.delete(
+    '/image',
+    ensureAuthenticate(),
+    imovelController.deleteImage,
+);
 export default imovelRouter;

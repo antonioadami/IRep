@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import DeleteImageService from '../../../services/DeleteImageService';
 import UploadImageService from '../../../services/UploadImageService';
 import CreateImovelService from '../../../services/CreateImovelService';
 import ListImoveisService from '../../../services/ListImoveisService';
@@ -81,6 +82,23 @@ export default class ImovelController {
         const uploadImageService = container.resolve(UploadImageService);
         await uploadImageService.execute(file.filename, userEmail, uuid);
 
-        return response.status(200).json();
+        return response.status(204).json();
+    }
+
+    public async deleteImage(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { uuid, imageUrl } = request.body;
+        const { userEmail } = request;
+
+        if (!uuid || !imageUrl) {
+            throw new AppError('Informe o uuid do imóvel e a url da imagem');
+        }
+
+        const deleteImageService = container.resolve(DeleteImageService);
+        await deleteImageService.execute(imageUrl, userEmail, uuid);
+
+        return response.status(204).json();
     }
 }
