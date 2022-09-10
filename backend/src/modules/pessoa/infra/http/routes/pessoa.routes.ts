@@ -18,6 +18,11 @@ pessoaRouter.post(
     upload.single('file'),
     pessoaController.uploadAvatar,
 );
+pessoaRouter.delete(
+    '/avatar',
+    ensureAuthenticate(),
+    pessoaController.deleteAvatar,
+);
 pessoaRouter.get('/', ensureAuthenticate(), pessoaController.get);
 
 export default pessoaRouter;

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import DeleteAvatarService from '../../../services/DeleteAvatarService';
 import UploadAvatarService from '../../../services/UploadAvatarService';
 import GetPessoaService from '../../../services/GetPessoaService';
 import CreateCadastroService from '../../../services/CreateCadastroService';
@@ -67,5 +68,17 @@ export default class PessoaController {
         await uploadAvatarService.execute(file.filename, userEmail);
 
         return response.status(200).json();
+    }
+
+    public async deleteAvatar(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { userEmail } = request;
+
+        const deleteAvatarService = container.resolve(DeleteAvatarService);
+        await deleteAvatarService.execute(userEmail);
+
+        return response.status(204).json();
     }
 }
