@@ -25,6 +25,12 @@ jobs:
         with: 
           node-version: 16.x
           
+      - name: Show folders
+        run: ls
+        
+      - name: Enter IRep folder
+        run: cd IRep
+        
       - name: Enter backend folder
         run: cd backend
 
