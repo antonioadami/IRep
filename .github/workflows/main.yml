@@ -24,6 +24,9 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: 16.x
+          
+      - name: Enter backend folder
+        run: cd backend
 
       - name: Install dependencies
         run: yarn
