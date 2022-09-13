@@ -1,4 +1,4 @@
 export const environment = {
-  apiURL: 'https://irep.vercel.app/',
+  apiURL: 'http://15.228.186.209/',
   production: true,
 };
