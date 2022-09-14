@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import DeleteImageService from '../../../services/DeleteImageService';
+import UploadImageService from '../../../services/UploadImageService';
 import CreateImovelService from '../../../services/CreateImovelService';
 import ListImoveisService from '../../../services/ListImoveisService';
 import GetImovelService from '../../../services/GetImovelService';
 import ICreateImovelDTO from '../../../dtos/ICreateImovelDTO';
 
-import AppError from '../../../../../infra/http/errors/AppError';
+import AppError from '../../../../../shared/errors/AppError';
 
 export default class ImovelController {
     public async create(
@@ -15,7 +17,7 @@ export default class ImovelController {
     ): Promise<Response> {
         const createImovelService = container.resolve(CreateImovelService);
 
-        const user = request.user.uuid;
+        const { userEmail } = request;
 
         const data = request.body as ICreateImovelDTO;
 
@@ -36,7 +38,7 @@ export default class ImovelController {
             throw new AppError('Dados faltantes');
         }
 
-        const imovel = await createImovelService.execute(data, user);
+        const imovel = await createImovelService.execute(data, userEmail);
 
         return response.status(200).json(imovel);
     }
@@ -52,7 +54,7 @@ export default class ImovelController {
     public async get(request: Request, response: Response): Promise<Response> {
         const getImovelService = container.resolve(GetImovelService);
 
-        const { user } = request;
+        const { userEmail } = request;
 
         const { uuid } = request.params;
 
@@ -60,8 +62,43 @@ export default class ImovelController {
             throw new AppError('Dados faltantes');
         }
 
-        const imovel = await getImovelService.execute(uuid, user?.uuid);
+        const imovel = await getImovelService.execute(uuid, userEmail);
 
         return response.status(200).json(imovel);
+    }
+
+    public async uploadImage(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { uuid } = request.body;
+        const { file } = request;
+        const { userEmail } = request;
+
+        if (!file) {
+            throw new AppError('Um arquivo de imagem deve ser enviado');
+        }
+
+        const uploadImageService = container.resolve(UploadImageService);
+        await uploadImageService.execute(file.filename, userEmail, uuid);
+
+        return response.status(204).json();
+    }
+
+    public async deleteImage(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { uuid, imageUrl } = request.body;
+        const { userEmail } = request;
+
+        if (!uuid || !imageUrl) {
+            throw new AppError('Informe o uuid do imóvel e a url da imagem');
+        }
+
+        const deleteImageService = container.resolve(DeleteImageService);
+        await deleteImageService.execute(imageUrl, userEmail, uuid);
+
+        return response.status(204).json();
     }
 }

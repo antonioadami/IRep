@@ -1,0 +1,105 @@
+<div class="bg-gray-200 pb-5 px-20 h-screen overflow-y-hidden" style="width: 100%;">
+  <div class="flex flex-row">
+    <div class="text-4xl p-5 ml-5 mb-5">
+      Anunciar
+    </div>
+    <div class="ml-auto mr-10 p-5">
+      <button class="bg-red-600 rounded-2xl px-3 py-1 text-white text-2xl" (click)="createAdvert()">
+        Publicar
+      </button>
+    </div>
+  </div>
+
+
+  <form [formGroup]="createForm">
+    <!-- Email -->
+    <div class="flex flex-col mb-3">
+      <mat-form-field class="text-base" appearance="outline">
+        <mat-label>Nome do Local</mat-label>
+        <input matInput type="text" [formControlName]="'nome'">
+        <mat-error class="text-base"
+          *ngIf="createForm.get('nome').hasError('required') && (createForm.get('nome').dirty || createForm.get('nome').touched)">
+          Nome é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="flex flex-col mb-3">
+      <mat-form-field class="text-base" appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input matInput type="text" [formControlName]="'cidade'">
+        <mat-error class="text-base"
+          *ngIf="createForm.get('cidade').hasError('required') && (createForm.get('cidade').dirty || createForm.get('cidade').touched)">
+          Cidade é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="flex flex-col mb-3">
+      <mat-form-field class="text-base" appearance="outline">
+        <mat-label>Rua</mat-label>
+        <input matInput type="text" [formControlName]="'rua'">
+        <mat-error class="text-base"
+          *ngIf="createForm.get('rua').hasError('required') && (createForm.get('rua').dirty || createForm.get('rua').touched)">
+          Rua é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="flex flex-col mb-3">
+      <mat-form-field class="text-base" appearance="outline">
+        <mat-label>Bairro</mat-label>
+        <input matInput type="text" [formControlName]="'bairro'">
+        <mat-error class="text-base"
+          *ngIf="createForm.get('bairro').hasError('required') && (createForm.get('bairro').dirty || createForm.get('bairro').touched)">
+          Bairro é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="grid grid-cols-3 justify-around gap-14 mb-3">
+      <div class="flex flex-col">
+        <mat-form-field class="text-base" appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input matInput type="text" [formControlName]="'estado'">
+          <mat-error class="text-base"
+            *ngIf="createForm.get('estado').hasError('required') && (createForm.get('estado').dirty || createForm.get('estado').touched)">
+            Estado é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col">
+        <mat-form-field class="text-base" appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input matInput type="text" [formControlName]="'cep'">
+          <mat-error class="text-base"
+            *ngIf="createForm.get('cep').hasError('required') && (createForm.get('cep').dirty || createForm.get('cep').touched)">
+            CEP é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col">
+        <mat-form-field class="text-base" appearance="outline">
+          <mat-label>Numero</mat-label>
+          <input matInput type="number" [formControlName]="'numero'">
+          <mat-error class="text-base"
+            *ngIf="createForm.get('numero').hasError('required') && (createForm.get('numero').dirty || createForm.get('numero').touched)">
+            Numero é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 justify-around gap-14">
+      <div class="flex flex-col">
+        <mat-form-field class="text-base" appearance="outline">
+          <mat-label>Quartos</mat-label>
+          <input matInput type="number" [formControlName]="'quartos'">
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col">
+        <mat-form-field class="text-base" appearance="outline">
+          <mat-label>Estacionamentos</mat-label>
+          <input matInput type="text" [formControlName]="'estacionamento'">
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col">
+        <mat-form-field class="text-base" appearance="outline">
+          <mat-label>Banheiros</mat-label>
+          <input matInput type="number" [formControlName]="'banheiros'">
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+</div>

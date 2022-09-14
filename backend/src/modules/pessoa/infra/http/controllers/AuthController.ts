@@ -1,9 +1,14 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import ConfirmForgotPasswordService from '../../../services/ConfirmForgotPasswordService';
+import ForgotPasswordService from '../../../services/ForgotPasswordService';
+import ChangePasswordService from '../../../services/ChangePasswordService';
+import ResendCodeService from '../../../services/ResendCodeService';
+import VerifyService from '../../../services/VerifyService';
 import LoginService from '../../../services/LoginService';
 
-import AppError from '../../../../../infra/http/errors/AppError';
+import AppError from '../../../../../shared/errors/AppError';
 
 export default class AuthController {
     public async login(
@@ -17,8 +22,99 @@ export default class AuthController {
             throw new AppError('Dados faltantes');
         }
 
-        const token = await loginService.execute({ usuario, senha });
+        const ans = await loginService.execute({ usuario, senha });
 
-        return response.status(200).json({ token });
+        return response.status(200).json(ans);
+    }
+
+    public async verify(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const verifyService = container.resolve(VerifyService);
+        const { email, code } = request.body;
+
+        if (!email || !code) {
+            throw new AppError('Dados faltantes');
+        }
+
+        await verifyService.execute({ email, code });
+
+        return response.status(200).json();
+    }
+
+    public async resendCode(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const resendCodeService = container.resolve(ResendCodeService);
+        const { email } = request.body;
+
+        if (!email) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const ans = await resendCodeService.execute(email);
+
+        return response.status(200).json(ans);
+    }
+
+    public async changePassword(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const changePasswordService = container.resolve(ChangePasswordService);
+        const { newPassword, oldPassword } = request.body;
+        const { accessToken } = request;
+
+        if (!newPassword || !oldPassword) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const ans = await changePasswordService.execute(
+            accessToken,
+            newPassword,
+            oldPassword,
+        );
+
+        return response.status(200).json(ans);
+    }
+
+    public async forgotPassword(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const forgotPasswordService = container.resolve(ForgotPasswordService);
+        const { email } = request.body;
+
+        if (!email) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const ans = await forgotPasswordService.execute(email);
+
+        return response.status(200).json(ans);
+    }
+
+    public async confirmForgotPassword(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const confirmForgotPasswordService = container.resolve(
+            ConfirmForgotPasswordService,
+        );
+        const { email, password, code } = request.body;
+
+        if (!email || !password || !code) {
+            throw new AppError('Dados faltantes');
+        }
+
+        const ans = await confirmForgotPasswordService.execute(
+            email,
+            password,
+            code,
+        );
+
+        return response.status(200).json(ans);
     }
 }

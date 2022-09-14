@@ -1,7 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import { v4 as uuidv4 } from 'uuid';
 
-import AppError from '../../../infra/http/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 import IPessoaModel from '../models/IPessoaModel';
 import IPessoaRepository from '../repositories/IPessoaRepository';
 import ICreatePessoaDTO from '../dtos/ICreatePessoaDTO';
@@ -29,10 +28,7 @@ export default class CreatePessoaService {
             throw new AppError('Cpf ou email já cadastrado');
         }
 
-        const uuid = uuidv4();
-
         const pessoa = await this.pessoaRepository.create({
-            uuid,
             cpf,
             dataNascimento,
             email,

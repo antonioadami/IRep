@@ -1,5 +1,4 @@
 export default interface ICadastroModel {
-    usuario: string;
-    senha: string;
-    uuid: string;
+    token: string;
+    refreshToken: string;
 }

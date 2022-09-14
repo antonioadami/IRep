@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import DeleteAvatarService from '../../../services/DeleteAvatarService';
+import UploadAvatarService from '../../../services/UploadAvatarService';
 import GetPessoaService from '../../../services/GetPessoaService';
 import CreateCadastroService from '../../../services/CreateCadastroService';
 import CreatePessoaService from '../../../services/CreatePessoaService';
-import AppError from '../../../../../infra/http/errors/AppError';
+import AppError from '../../../../../shared/errors/AppError';
 
 export default class PessoaController {
     public async create(
@@ -21,31 +23,62 @@ export default class PessoaController {
             throw new AppError('Dados faltantes');
         }
 
-        const dataNasc = dataNascimento;
-
-        const pessoa = await createPessoaService.execute({
+        await createPessoaService.execute({
             cpf,
-            dataNascimento: dataNasc,
+            dataNascimento,
             email,
             nome,
             telefone,
         });
 
-        await createCadastroService.execute({
-            usuario: email,
+        const ans = await createCadastroService.execute({
+            dataNascimento,
+            email,
+            nome,
             senha,
+            telefone,
         });
+
+        return response.status(200).json(ans);
+    }
+
+    public async get(request: Request, response: Response): Promise<Response> {
+        const { userEmail } = request;
+
+        const getPessoaService = container.resolve(GetPessoaService);
+
+        const pessoa = await getPessoaService.execute(userEmail);
 
         return response.status(200).json(pessoa);
     }
 
-    public async get(request: Request, response: Response): Promise<Response> {
-        const { uuid } = request.user;
+    public async uploadAvatar(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { userEmail } = request;
 
-        const getPessoaService = container.resolve(GetPessoaService);
+        const { file } = request;
 
-        const pessoa = await getPessoaService.execute(uuid);
+        if (!file) {
+            throw new AppError('Um arquivo de imagem deve ser enviado');
+        }
 
-        return response.status(200).json(pessoa);
+        const uploadAvatarService = container.resolve(UploadAvatarService);
+        await uploadAvatarService.execute(file.filename, userEmail);
+
+        return response.status(204).json();
+    }
+
+    public async deleteAvatar(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { userEmail } = request;
+
+        const deleteAvatarService = container.resolve(DeleteAvatarService);
+        await deleteAvatarService.execute(userEmail);
+
+        return response.status(204).json();
     }
 }

@@ -1,4 +1,4 @@
-import session from '../../../../../infra/neo4j-driver/index';
+import session from '../../../../../shared/infra/neo4j-driver/index';
 import ICreatePessoaDTO from '../../../dtos/ICreatePessoaDTO';
 import IPessoaModel from '../../../models/IPessoaModel';
 import IPessoasRepository from '../../../repositories/IPessoaRepository';
@@ -22,18 +22,8 @@ export default class PessoasRepository implements IPessoasRepository {
 
     public async create(data: ICreatePessoaDTO): Promise<IPessoaModel> {
         const result = await session.run(
-            'CREATE(p: Pessoa{nome: $nome, email: $email, cpf: $cpf, dataNascimento: $dataNascimento, uuid: $uuid, telefone: $telefone}) RETURN p',
+            'CREATE(p: Pessoa{nome: $nome, email: $email, cpf: $cpf, dataNascimento: $dataNascimento, telefone: $telefone}) RETURN p',
             data,
-        );
-
-        const Pessoa = result.records[0].get(0).properties;
-        return Pessoa;
-    }
-
-    public async getByUuid(uuid: string): Promise<IPessoaModel> {
-        const result = await session.run(
-            'MATCH(p: Pessoa{uuid: $uuid}) RETURN p',
-            { uuid },
         );
 
         const Pessoa = result.records[0].get(0).properties;
@@ -44,6 +34,19 @@ export default class PessoasRepository implements IPessoasRepository {
         const result = await session.run(
             'MATCH(p: Pessoa{email: $email}) RETURN p',
             { email },
+        );
+
+        const Pessoa = result.records[0].get(0).properties;
+        return Pessoa;
+    }
+
+    public async setAvatar(
+        email: string,
+        avatarUrl: string,
+    ): Promise<IPessoaModel | null> {
+        const result = await session.run(
+            'MATCH(p: Pessoa{email: $email}) SET p.avatarUrl = $avatarUrl RETURN p',
+            { email, avatarUrl },
         );
 
         const Pessoa = result.records[0].get(0).properties;

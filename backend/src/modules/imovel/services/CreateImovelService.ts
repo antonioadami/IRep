@@ -17,15 +17,16 @@ export default class CreateImovelService {
 
     public async execute(
         data: ICreateImovelDTO,
-        pessoaUuid: string,
+        userEmail: string,
     ): Promise<IImovelModel> {
         const uuidImovel = uuidv4();
         const uuidEndereco = uuidv4();
 
         const imovel = await this.imovelRepository.create({
             ...data,
+            images: [],
             uuid: uuidImovel,
-            pessoaUuid,
+            userEmail,
         });
         const endereco = await this.enderecoRepository.create({
             ...data.endereco,
