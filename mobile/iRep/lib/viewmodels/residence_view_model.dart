@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:irep/helpers/mocks/user_ads_mock.dart';
 import 'package:irep/models/error_model.dart';
 import 'package:irep/models/residence_model.dart';
 import 'package:irep/models/succes_model.dart';

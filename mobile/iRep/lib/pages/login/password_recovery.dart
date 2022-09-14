@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
-import 'package:irep/widgets/button_pattern.dart';
-import 'package:irep/widgets/text_field_pattern.dart';
 
 class PasswordRecovery extends StatelessWidget {
   const PasswordRecovery({Key? key}) : super(key: key);

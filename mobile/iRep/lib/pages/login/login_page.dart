@@ -1,6 +1,5 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:irep/enums/status_load_enum.dart';
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/helpers/functions_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
@@ -13,7 +12,7 @@ import 'package:irep/widgets/text_field_pattern.dart';
 import 'package:provider/src/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();

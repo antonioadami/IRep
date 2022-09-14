@@ -9,9 +9,9 @@ import 'package:irep/routes/name_routes.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   splashScreen: (context) => const SplashScreenWidget(),
-  login: (context) => LoginPage(),
+  login: (context) => const LoginPage(),
   passwordRecovery: (context) => const PasswordRecovery(),
-  register: (context) => RegisterPage(),
+  register: (context) => const RegisterPage(),
   home: (context) => const HomePage(),
   residenceDetails: (context) => const ResidenceDetails(),
 };

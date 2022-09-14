@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
+import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/models/error_model.dart';
 import 'package:irep/models/succes_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,7 @@ class LoginDatasource {
     required String telefone,
     required String dataNascimento,
   }) async {
-    Uri url = Uri.parse("https://irep.vercel.app/pessoa");
+    Uri url = Uri.parse("$baseUrl/pessoa");
     var data = dataNascimento.split('/');
     var body = {
       "cpf": cpf,
@@ -49,7 +50,7 @@ class LoginDatasource {
   }) async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("https://irep.vercel.app/auth/login");
+    Uri url = Uri.parse("$baseUrl/auth/login");
     var params = {
       "usuario": email,
       "senha": senha,
@@ -76,7 +77,7 @@ class LoginDatasource {
   Future<Either<ErrorModel, SuccessModel>> getUserInformation() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("https://irep.vercel.app/pessoa");
+    Uri url = Uri.parse("$baseUrl/pessoa");
 
     String token = shared.getString('token') ?? '';
     var response = await http.get(url, headers: {

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:irep/enums/status_load_enum.dart';
 import 'package:irep/models/error_model.dart';
 import 'package:irep/models/succes_model.dart';
 import 'package:irep/models/user_model.dart';
