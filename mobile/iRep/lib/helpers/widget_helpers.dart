@@ -5,9 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/helpers/functions_helpers.dart';
-import 'package:irep/models/error_model.dart';
 import 'package:irep/models/residence_model.dart';
-import 'package:irep/models/succes_model.dart';
 import 'package:irep/routes/name_routes.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/viewmodels/residence_view_model.dart';
@@ -97,16 +95,12 @@ class _ResidenceWidgetState extends State<ResidenceWidget> {
         if (widget.residence.uuid == null) {
           errorSnackbar(
             context,
-            ErrorModel(
-              message: 'Não foi possível buscar os dados da residência.',
-            ),
+            message: 'Não foi possível buscar os dados da residência.',
           );
         } else {
           successSnackbar(
             context,
-            SuccessModel(
-              message: 'Carregando os dados da residencia.',
-            ),
+            message: 'Carregando os dados da residencia.',
           );
           var result = await viewModel.getResidenceInformation(
             widget.residence.uuid!,
@@ -115,9 +109,7 @@ class _ResidenceWidgetState extends State<ResidenceWidget> {
           result.fold((left) {
             errorSnackbar(
               context,
-              ErrorModel(
-                message: 'Não foi possível buscar os dados da residência.',
-              ),
+              message: 'Não foi possível buscar os dados da residência.',
             );
           }, (right) {
             Navigator.pushNamed(

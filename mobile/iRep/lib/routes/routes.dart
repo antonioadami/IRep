@@ -4,6 +4,7 @@ import 'package:irep/pages/home/home_page.dart';
 import 'package:irep/pages/login/login_page.dart';
 import 'package:irep/pages/login/password_recovery.dart';
 import 'package:irep/pages/login/register_page.dart';
+import 'package:irep/pages/login/verify_code_page.dart';
 import 'package:irep/pages/splashscreen_page.dart';
 import 'package:irep/routes/name_routes.dart';
 
@@ -14,4 +15,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   register: (context) => const RegisterPage(),
   home: (context) => const HomePage(),
   residenceDetails: (context) => const ResidenceDetails(),
+  verifyCode: (context) => VerifyCodePage(),
 };

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/helpers/functions_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
-import 'package:irep/models/error_model.dart';
 import 'package:irep/routes/name_routes.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/widgets/button_pattern.dart';
@@ -85,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
 
                       result.fold((error) {
-                        errorSnackbar(context, error);
+                        errorSnackbar(context, message: error.message);
                       }, (success) async {
                         await loginViewModel.getUserInformation();
                         if (loginViewModel.user != null) {
@@ -96,9 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                         } else {
                           errorSnackbar(
                             context,
-                            ErrorModel(
-                              message: 'Erro ao buscar os dados do usuário',
-                            ),
+                            message: 'Erro ao buscar os dados do usuário',
                           );
                         }
                       });

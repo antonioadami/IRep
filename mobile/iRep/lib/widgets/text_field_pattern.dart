@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class TextFieldPattern extends StatelessWidget {
   String label;
   String? initialValue;
-  Function(String?) onSaved;
+  Function(String?)? onSaved ;
   String? Function(String?)? validator;
   List<TextInputFormatter>? inputFormatters;
   TextInputType? keyboardType;
@@ -16,7 +16,7 @@ class TextFieldPattern extends StatelessWidget {
 
   TextFieldPattern({
     required this.label,
-    required this.onSaved,
+    this.onSaved ,
     this.validator,
     this.inputFormatters,
     this.keyboardType,
@@ -67,7 +67,7 @@ class TextFieldPattern extends StatelessWidget {
           inputFormatters: inputFormatters ?? [],
           keyboardType: keyboardType ?? TextInputType.text,
           validator: validator,
-          onSaved: onSaved,
+          onSaved: onSaved ?? (_){},
           obscureText: obscureText ?? false,
         ),
       ),
