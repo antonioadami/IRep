@@ -1,14 +1,13 @@
 import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
-import 'package:irep/models/error_model.dart';
-import 'package:irep/models/succes_model.dart';
+import 'package:irep/helpers/constants_helpers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResidenceDatasource {
-  Future<Either<ErrorModel, SuccessModel>> getResidences() async {
+  Future<Either<dynamic, dynamic>> getResidences() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("https://irep.vercel.app/imovel");
+    Uri url = Uri.parse("$baseUrl/imovel");
 
     String token = shared.getString('token') ?? '';
     var response = await http.get(url, headers: {
@@ -16,24 +15,20 @@ class ResidenceDatasource {
     });
 
     if (response.statusCode == 200) {
-      return Right(
-        SuccessModel(
-          response: response.body,
-        ),
-      );
+      return Right(response);
     }
-    return Left(
-      ErrorModel(
-        statusCode: response.statusCode,
-        message: 'Erro ao fazer login.\nEmail ou senha incorretos.',
-      ),
-    );
+    return Left(response
+        // ErrorModel(
+        //   statusCode: response.statusCode,
+        //   message: 'Erro ao fazer login.\nEmail ou senha incorretos.',
+        // ),
+        );
   }
 
-   Future<Either<ErrorModel, SuccessModel>> getResidenceInformation(String uuid) async {
+  Future<Either<dynamic, dynamic>> getResidenceInformation(String uuid) async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("https://irep.vercel.app/imovel/$uuid");
+    Uri url = Uri.parse("$baseUrl/imovel/$uuid");
 
     String token = shared.getString('token') ?? '';
     var response = await http.get(url, headers: {
@@ -41,17 +36,14 @@ class ResidenceDatasource {
     });
 
     if (response.statusCode == 200) {
-      return Right(
-        SuccessModel(
-          response: response.body,
-        ),
-      );
+      return Right(response);
     }
     return Left(
-      ErrorModel(
-        statusCode: response.statusCode,
-        message: 'Erro ao fazer login.\nEmail ou senha incorretos.',
-      ),
+      response,
+      // ErrorModel(
+      //   statusCode: response.statusCode,
+      //   message: 'Erro ao fazer login.\nEmail ou senha incorretos.',
+      // ),
     );
   }
 }

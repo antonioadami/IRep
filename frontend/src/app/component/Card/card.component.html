@@ -1,0 +1,40 @@
+<div class="w-auto h-auto bg-white rounded-2xl border-2 border-black pb-1">
+
+  <div class="w-full h-40 rounded-t-2xl bg-red-600">
+    <div class="grid justify-items-center flex items-center text-9xl">
+      <i class="fa fa-home mr-3 text-white"></i>
+    </div>
+  </div>
+
+  <div class="grid justify-items-center px-10 py-6">
+    <div class="grid items-center pb-1">
+      <div class="px-3 py-2 font-medium text-xl">
+        {{advert?.nome}}
+        <ng-container *ngIf="true, else notFav">
+          <i class="fa fa-star mr-3 text-red-600" aria-hidden="true"></i>
+        </ng-container>
+        <ng-template #notFav><i class="fa fa-star-o mr-3 text-red-600" aria-hidden="true"></i></ng-template>
+      </div>
+      <div class="px-3 text-sm mt-2">
+        {{advert?.quartos}} Quartos | {{advert?.banheiros}} Banheiros
+      </div>
+      <div class="px-3 text-sm mt-2">
+        {{advert?.estacionamento}} Estacionameto(s)
+      </div>
+      <div class="flex flex-row mt-2">
+        <div class="text-sm">
+          <span *ngIf="advert?.internet, else not">Com Internet</span>
+          <ng-template #not><span>Sem Internet</span></ng-template>
+        </div>
+        <div class="px-3 mb-2 text-sm">
+          <span *ngIf="advert?.gas, else gas">Com Gás Interno</span>
+          <ng-template #gas><span>Sem Gás Interno</span></ng-template>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>

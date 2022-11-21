@@ -1,10 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:irep/enums/status_load_enum.dart';
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/helpers/functions_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
-import 'package:irep/models/error_model.dart';
 import 'package:irep/routes/name_routes.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/widgets/button_pattern.dart';
@@ -13,7 +11,7 @@ import 'package:irep/widgets/text_field_pattern.dart';
 import 'package:provider/src/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -86,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
 
                       result.fold((error) {
-                        errorSnackbar(context, error);
+                        errorSnackbar(context, message: error.message);
                       }, (success) async {
                         await loginViewModel.getUserInformation();
                         if (loginViewModel.user != null) {
@@ -97,9 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                         } else {
                           errorSnackbar(
                             context,
-                            ErrorModel(
-                              message: 'Erro ao buscar os dados do usuário',
-                            ),
+                            message: 'Erro ao buscar os dados do usuário',
                           );
                         }
                       });

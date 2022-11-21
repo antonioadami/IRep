@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
+import 'package:irep/helpers/constants_helpers.dart';
+import 'package:irep/models/create_user_response.dart';
 import 'package:irep/models/error_model.dart';
 import 'package:irep/models/succes_model.dart';
+import 'package:irep/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginDatasource {
-  Future<Either<ErrorModel, SuccessModel>> registerUser({
+  Future<Either<ErrorModel, CreatePersonResponse>> createUser({
     required String cpf,
     required String email,
     required String nome,
@@ -15,8 +18,13 @@ class LoginDatasource {
     required String telefone,
     required String dataNascimento,
   }) async {
-    Uri url = Uri.parse("https://irep.vercel.app/pessoa");
+    Uri url = Uri.parse("http://$baseUrl/pessoa");
     var data = dataNascimento.split('/');
+    telefone = telefone
+        .replaceAll(" ", "")
+        .replaceAll("-", "")
+        .replaceAll("(", "")
+        .replaceAll(")", "");
     var body = {
       "cpf": cpf,
       "email": email,
@@ -25,58 +33,125 @@ class LoginDatasource {
       "senha": senha,
       "telefone": telefone,
     };
-
-    var response = await http.post(url, body: body);
-    if (response.statusCode == 200) {
+    try {
+      var response = await http.post(url, body: body);
+      if (response.statusCode == 400) {
+        return Left(
+          ErrorModel(
+            statusCode: response.statusCode,
+            message: jsonDecode(response.body)["message"],
+          ),
+        );
+      }
       return Right(
-        SuccessModel(
-          response: response.body,
-          message: 'Usuário cadastrado com sucesso',
+        CreatePersonResponse.fromJson(
+          jsonDecode(response.body),
+        ),
+      );
+    } catch (e) {
+      return Left(
+        ErrorModel(
+          statusCode: 500,
+          message: 'Erro ao cadastrar novo usuário',
         ),
       );
     }
-    return Left(
-      ErrorModel(
-        statusCode: response.statusCode,
-        message: 'Erro ao cadastrar novo usuário',
-      ),
-    );
   }
 
-  Future<Either<ErrorModel, SuccessModel>> handleLogin({
+  Future<Either<ErrorModel, SuccessModel>> verifyUser({
+    required String code,
+    required String email,
+  }) async {
+    Uri url = Uri.parse("http://$baseUrl/auth/verify");
+    var params = {
+      "email": email,
+      "code": code,
+    };
+    try {
+      var response = await http.post(url, body: params);
+      if (response.statusCode == 200) {
+        return Right(SuccessModel(message: "Usuário verificado!"));
+      }
+      return Left(
+        ErrorModel(message: "Erro ao verificar a conta"),
+      );
+    } catch (e) {
+      return Left(
+        ErrorModel(message: "Erro ao verificar a conta"),
+      );
+    }
+  }
+
+  Future<Either<ErrorModel, CreatePersonResponse>> resendCode({
+    required String email,
+  }) async {
+    Uri url = Uri.parse("http://$baseUrl/auth/resendCode");
+    var params = {
+      "email": email,
+    };
+    try {
+      var response = await http.post(url, body: params);
+      if (response.statusCode == 200) {
+        return Right(CreatePersonResponse.fromJson(
+          jsonDecode(response.body),
+        ));
+      }
+      return Left(
+        ErrorModel(message: "Erro ao reenviar código"),
+      );
+    } catch (e) {
+      return Left(
+        ErrorModel(message: "Erro ao reenviar código"),
+      );
+    }
+  }
+
+  Future<Either<ErrorModel, String>> handleLogin({
     required String email,
     required String senha,
   }) async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("https://irep.vercel.app/auth/login");
+    Uri url = Uri.parse("http://$baseUrl/auth/login");
     var params = {
       "usuario": email,
       "senha": senha,
     };
-
-    var response = await http.post(url, body: params);
-    if (response.statusCode == 200) {
-      shared.setString('token', jsonDecode(response.body)['token']);
-      return Right(
-        SuccessModel(
-          response: response.body,
+    try {
+      var response = await http.post(url, body: params);
+      if (response.statusCode == 200) {
+        shared.setString('token', jsonDecode(response.body)['token']);
+        return const Right('');
+      }
+      shared.remove('token');
+      if (response.statusCode == 400) {
+        return Left(
+          ErrorModel(
+            statusCode: response.statusCode,
+            message: 'Erro ao fazer login.\nEmail ou senha incorretos.',
+          ),
+        );
+      }
+      return Left(
+        ErrorModel(
+          statusCode: response.statusCode,
+          message: 'Erro ao fazer login.',
+        ),
+      );
+    } catch (e) {
+      return Left(
+        ErrorModel(
+          statusCode: 500,
+          message: 'Erro inesperado ao fazer login.',
         ),
       );
     }
-    shared.remove('token');
-    return Left(
-      ErrorModel(
-        statusCode: response.statusCode,
-        message: 'Erro ao fazer login.\nEmail ou senha incorretos.',
-      ),
-    );
   }
 
-  Future<Either<ErrorModel, SuccessModel>> getUserInformation() async {
+  Future<Either<ErrorModel, UserModel>> getUserInformation() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("https://irep.vercel.app/pessoa");
+    Uri url = Uri.parse("http://$baseUrl/pessoa");
 
     String token = shared.getString('token') ?? '';
     var response = await http.get(url, headers: {
@@ -85,8 +160,8 @@ class LoginDatasource {
 
     if (response.statusCode == 200) {
       return Right(
-        SuccessModel(
-          response: response.body,
+        UserModel.fromJson(
+          jsonDecode(response.body),
         ),
       );
     }

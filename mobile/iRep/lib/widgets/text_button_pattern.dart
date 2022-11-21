@@ -1,12 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
 
 class TextButtonPattern extends StatelessWidget {
-  String label;
-  void Function()? onTap;
-  Color? color;
+  final String label;
+  final void Function()? onTap;
+  final Color? color;
 
-  TextButtonPattern({
+  const TextButtonPattern({
     required this.label,
     required this.onTap,
     this.color,

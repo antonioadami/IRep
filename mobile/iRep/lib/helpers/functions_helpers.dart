@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:irep/models/error_model.dart';
-import 'package:irep/models/succes_model.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-void errorSnackbar(BuildContext context, ErrorModel error) {
+void errorSnackbar(BuildContext context, {required String message}) {
   showTopSnackBar(
     context,
     CustomSnackBar.error(
-      message: error.message!,
+      message: message,
     ),
   );
 }
 
-void successSnackbar(BuildContext context, SuccessModel success) {
+void successSnackbar(BuildContext context, {required String message}) {
   showTopSnackBar(
     context,
     CustomSnackBar.success(
-      message: success.message!,
+      message: message,
     ),
   );
 }

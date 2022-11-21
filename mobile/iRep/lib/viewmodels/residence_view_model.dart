@@ -2,10 +2,7 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:irep/helpers/mocks/user_ads_mock.dart';
-import 'package:irep/models/error_model.dart';
 import 'package:irep/models/residence_model.dart';
-import 'package:irep/models/succes_model.dart';
 import 'package:irep/service/residence_service.dart';
 
 class ResidenceViewModel extends ChangeNotifier {
@@ -26,8 +23,7 @@ class ResidenceViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Either<ErrorModel, SuccessModel>> getResidenceInformation(
-      String uuid) async {
+  Future<Either<dynamic, dynamic>> getResidenceInformation(String uuid) async {
     return await service.getResidenceInformation(uuid);
   }
 }

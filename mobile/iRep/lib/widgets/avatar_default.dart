@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
 
 class AvatarDefault extends StatelessWidget {
-  String? photo;
-  bool isProfilePage;
-  String name;
-  AvatarDefault({
+  final String? photo;
+  final bool isProfilePage;
+  final String name;
+  const AvatarDefault({
     required this.photo,
     required this.name,
     this.isProfilePage = false,
@@ -28,7 +28,7 @@ class AvatarDefault extends StatelessWidget {
             ),
             child: null,
           )
-        : Container(
+        : SizedBox(
             height: 250,
             width: 250,
             child: Center(

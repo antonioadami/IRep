@@ -5,34 +5,39 @@ import 'package:flutter/services.dart';
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/helpers/functions_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
+import 'package:irep/routes/name_routes.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/widgets/button_pattern.dart';
 import 'package:irep/widgets/text_field_pattern.dart';
 import 'package:provider/provider.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController controllerNome = TextEditingController();
+  TextEditingController controllerNome = TextEditingController(text: 'Gustavo');
 
-  TextEditingController controllerCpf = TextEditingController();
+  TextEditingController controllerCpf =
+      TextEditingController(text: '005.237.110-77');
 
-  TextEditingController controllerData = TextEditingController();
+  TextEditingController controllerData =
+      TextEditingController(text: '16/09/1999');
 
-  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerEmail =
+      TextEditingController(text: 'kbaasajhv@g.cvom');
 
-  TextEditingController controllerSenha = TextEditingController();
+  TextEditingController controllerSenha =
+      TextEditingController(text: 'Maria1622*');
 
-  TextEditingController controllerRepetirSenha = TextEditingController();
+  TextEditingController controllerRepetirSenha =
+      TextEditingController(text: 'Maria1622*');
 
-  TextEditingController controllerTelefone = TextEditingController();
+  TextEditingController controllerTelefone =
+      TextEditingController(text: '(37) 99983-4175');
 
   final _formKey = GlobalKey<FormState>();
 
@@ -49,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           children: [
             AppBarWidget(showBackButton: true),
-            defaultSpacingInline,
+            spacingStack8,
             Expanded(
               child: SingleChildScrollView(
                 child: Form(
@@ -58,21 +63,25 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       TextFieldPattern(
                         label: 'Nome',
-                        onSaved: (text) {},
                         controller: controllerNome,
                       ),
                       TextFieldPattern(
                         label: 'CPF',
-                        onSaved: (text) {},
                         controller: controllerCpf,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           CpfInputFormatter(),
                         ],
+                        validator: (text) {
+                          if (text!.isEmpty) {
+                            return 'o CPF deve ser preenchido.';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
                       ),
                       TextFieldPattern(
                         label: 'Data de Nascimento',
-                        onSaved: (text) {},
                         controller: controllerData,
                         validator: (text) {
                           if (text == null || text.isEmpty) {
@@ -102,6 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           FilteringTextInputFormatter.digitsOnly,
                           DataInputFormatter(),
                         ],
+                        keyboardType: TextInputType.number,
                       ),
                       TextFieldPattern(
                         label: 'Email',
@@ -116,19 +126,25 @@ class _RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
+                        keyboardType: TextInputType.emailAddress,
                       ),
                       TextFieldPattern(
                         label: 'Telefone',
-                        onSaved: (text) {},
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           TelefoneInputFormatter(),
                         ],
                         controller: controllerTelefone,
+                        validator: (text) {
+                          if (text!.isEmpty) {
+                            return 'O telefone deve ser preenchido';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.phone,
                       ),
                       TextFieldPattern(
                         label: 'Senha',
-                        onSaved: (text) {},
                         controller: controllerSenha,
                         obscureText: true,
                         validator: (text) {
@@ -141,7 +157,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       TextFieldPattern(
                         label: 'Repetir senha',
                         obscureText: true,
-                        onSaved: (text) {},
                         controller: controllerRepetirSenha,
                         validator: (text) {
                           if (text!.isEmpty) {
@@ -153,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      defaultSpacingInline,
+                      spacingStack8,
                       ButtonPattern(
                           label: isLoading
                               ? const SizedBox(
@@ -171,7 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 isLoading = true;
                               });
                               _formKey.currentState!.save();
-                              var result = await loginViewModel.registerUser(
+                              var result = await loginViewModel.createUser(
                                 cpf: controllerCpf.text,
                                 email: controllerEmail.text,
                                 nome: controllerNome.text,
@@ -180,17 +195,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                 dataNascimento: controllerData.text,
                               );
                               result.fold((error) {
-                                errorSnackbar(context, error);
+                                errorSnackbar(context, message: error.message!);
                               }, (success) {
-                                successSnackbar(context, success);
-                                Navigator.pop(context);
+                                Navigator.popAndPushNamed(
+                                  context,
+                                  verifyCode,
+                                  arguments: success,
+                                );
                               });
                               setState(() {
                                 isLoading = false;
                               });
                             }
                           }),
-                      defaultSpacingInline,
+                      spacingStack8,
                     ],
                   ),
                 ),

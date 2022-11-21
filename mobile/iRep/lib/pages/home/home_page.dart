@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
-import 'package:irep/pages/ads/ads_page.dart';
 import 'package:irep/pages/dashboard/dashboard_page.dart';
 import 'package:irep/pages/dashboard/favorites_page.dart';
 import 'package:irep/pages/perfil/perfil_page.dart';
