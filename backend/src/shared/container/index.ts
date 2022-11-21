@@ -7,7 +7,7 @@ import EnderecoRepository from '../../modules/imovel/infra/neo4j/repostories/End
 import ImovelRepository from '../../modules/imovel/infra/neo4j/repostories/ImovelRepository';
 import IImovelRepository from '../../modules/imovel/repositories/IImovelRepository';
 import IEnderecoRepository from '../../modules/imovel/repositories/IEnderecoRepository';
-import IPessoaRepository from '../../modules/pessoa/repositories/IPessoaRepository';
+import IPessoaRepository from '../../modules/pessoa/repositories/models/IPessoaRepository';
 import PessoaRepository from '../../modules/pessoa/infra/neo4j/repositories/PessoaRepository';
 
 container.registerSingleton<IPessoaRepository>(

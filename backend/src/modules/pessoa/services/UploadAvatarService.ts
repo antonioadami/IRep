@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe';
+import AppError from '../../../shared/errors/AppError';
 
 import IStorageProvider from '../../../shared/container/providers/StorageProvider/IStorageProvider';
-import IPessoaRepository from '../repositories/IPessoaRepository';
+import IPessoaRepository from '../repositories/models/IPessoaRepository';
 
 @injectable()
 export default class UploadAvatarService {
@@ -14,6 +15,10 @@ export default class UploadAvatarService {
 
     public async execute(file: string, userEmail: string): Promise<void> {
         const user = await this.pessoaRepository.getByEmail(userEmail);
+
+        if (!user) {
+            throw new AppError('Usuário não encontrado');
+        }
 
         if (user.avatarUrl) {
             await this.storageProvider.delete(user.avatarUrl, 'avatar');

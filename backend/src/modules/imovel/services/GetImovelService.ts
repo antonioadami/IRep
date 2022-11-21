@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '../../../shared/errors/AppError';
 import IImovelModel from '../models/IImovelModel';
 
-import IPessoaRepository from '../../pessoa/repositories/IPessoaRepository';
+import IPessoaRepository from '../../pessoa/repositories/models/IPessoaRepository';
 import IEnderecoRepository from '../repositories/IEnderecoRepository';
 import IImovelRepository from '../repositories/IImovelRepository';
 
