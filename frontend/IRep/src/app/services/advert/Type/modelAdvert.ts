@@ -5,7 +5,7 @@ export interface ModelAdvert {
   estacionamento: number;
   internet: boolean;
   gas: boolean;
-  endereço?: ModelAddress;
+  endereco?: ModelAddress;
   uuid?: string;
   contato?: ModelContact;
 }

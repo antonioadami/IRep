@@ -4,10 +4,14 @@
   <!-- Actions -->
   <div class="flex items-center pl-2 ml-auto mr-5">
     <ng-container>
-      <span class="text-2xl text-black mr-5">Gustavo Esteves</span>
+      <span class="text-2xl text-black mr-5">Gustavo</span>
     </ng-container>
     <button mat-button [matMenuTriggerFor]="menu">
-      <img class="w-10 h-10 rounded-full" src="../../../assets/imagens/Eu.jpg" alt="">
+      <!-- <img class="w-10 h-10 rounded-full" src="../../../assets/imagens/Eu.jpg" alt=""> -->
+      <div class="text-3xl">
+        <i class="fa fa-user-circle-o mr-3 text-black" aria-hidden="true"></i>
+      </div>
+
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item><i class="fa fa-star fa-lg mr-3 text-red-600" aria-hidden="true"></i>Favoritos</button>
