@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
 
 class ButtonPattern extends StatelessWidget {
-  dynamic label;
-  void Function()? onTap;
+final  dynamic label;
+final  void Function()? onTap;
 
-  ButtonPattern({
+  const ButtonPattern({
     required this.label,
     required this.onTap,
     Key? key,

@@ -1,6 +1,4 @@
-// ignore_for_file: constant_identifier_names
-
-import 'package:collection/src/iterable_extensions.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:irep/enums/contact_type_enum.dart';
 

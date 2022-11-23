@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:either_dart/either.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:irep/helpers/functions_helpers.dart';
 import 'package:irep/models/create_user_response.dart';
 import 'package:irep/models/error_model.dart';
 import 'package:irep/models/succes_model.dart';

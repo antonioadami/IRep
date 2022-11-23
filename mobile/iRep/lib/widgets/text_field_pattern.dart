@@ -6,17 +6,18 @@ import 'package:flutter/services.dart';
 class TextFieldPattern extends StatelessWidget {
   String label;
   String? initialValue;
-  Function(String?)? onSaved ;
+  Function(String?)? onSaved;
   String? Function(String?)? validator;
   List<TextInputFormatter>? inputFormatters;
   TextInputType? keyboardType;
   int? maxLines;
   TextEditingController? controller;
   bool? obscureText;
+  double? width;
 
   TextFieldPattern({
     required this.label,
-    this.onSaved ,
+    this.onSaved,
     this.validator,
     this.inputFormatters,
     this.keyboardType,
@@ -24,6 +25,7 @@ class TextFieldPattern extends StatelessWidget {
     this.initialValue,
     this.controller,
     this.obscureText,
+    this.width,
     Key? key,
   }) : super(key: key);
 
@@ -32,6 +34,7 @@ class TextFieldPattern extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
+        width: width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
         ),
@@ -67,7 +70,7 @@ class TextFieldPattern extends StatelessWidget {
           inputFormatters: inputFormatters ?? [],
           keyboardType: keyboardType ?? TextInputType.text,
           validator: validator,
-          onSaved: onSaved ?? (_){},
+          onSaved: onSaved ?? (_) {},
           obscureText: obscureText ?? false,
         ),
       ),

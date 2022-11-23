@@ -11,7 +11,7 @@ import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/viewmodels/residence_view_model.dart';
 import 'package:irep/widgets/avatar_default.dart';
 import 'package:irep/widgets/text_button_pattern.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class AppBarWidget extends StatelessWidget {
   bool showBackButton;
@@ -115,78 +115,57 @@ class _ResidenceWidgetState extends State<ResidenceWidget> {
             Navigator.pushNamed(
               context,
               residenceDetails,
-              arguments: ResidenceModel.fromJson(jsonDecode(right.response)),
+              arguments: ResidenceModel.fromJson(jsonDecode(right.body)),
             );
           });
         }
       },
       child: Card(
-        child: SizedBox(
-          height: 100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Container(
-                    height: 75,
-                    width: 75,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(primaryColorRed),
-                      image: widget.residence.photo != null
-                          ? DecorationImage(
-                              image: AssetImage(widget.residence.photo!),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
-                    ),
-                    child: widget.residence.photo == null
-                        ? const Icon(
-                            Icons.home,
-                            color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Container(
+                  height: 75,
+                  width: 75,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Color(primaryColorRed),
+                    image: widget.residence.photo != null
+                        ? DecorationImage(
+                            image: AssetImage(widget.residence.photo!),
+                            fit: BoxFit.cover,
                           )
                         : null,
                   ),
+                  child: widget.residence.photo == null
+                      ? const Icon(
+                          Icons.home,
+                          color: Colors.white,
+                        )
+                      : null,
                 ),
               ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.residence.nome!,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 5),
-                    BuildInformation(residence: widget.residence)
-                  ],
-                ),
-              ),
-              if (widget.residence.isFavorite != null)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        widget.residence.isFavorite =
-                            !widget.residence.isFavorite!;
-                      });
-                    },
-                    child: Icon(
-                      widget.residence.isFavorite!
-                          ? Icons.star
-                          : Icons.star_border_outlined,
-                      color: Color(primaryColorRed),
-                    ),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.residence.nome!,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                ),
-            ],
-          ),
+                  const SizedBox(height: 5),
+                  BuildInformation(residence: widget.residence)
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

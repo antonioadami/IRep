@@ -36,9 +36,28 @@ class _DashboardPageState extends State<DashboardPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ...viewmodel.residences.map((e) {
-                    return ResidenceWidget(residence: e);
-                  }).toList(),
+                  if (viewmodel.residences.isEmpty)
+                    Card(
+                      child: Container(
+                        width: double.infinity,
+                        height: 75,
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: const [
+                            Icon(Icons.block),
+                            Text(
+                              'Não há anúncios para exibir',
+                              style: TextStyle(fontSize: 20),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  else
+                    ...viewmodel.residences.map((e) {
+                      return ResidenceWidget(residence: e);
+                    }).toList(),
                 ],
               ),
             ),

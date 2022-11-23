@@ -4,8 +4,8 @@ import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/models/contact_model.dart';
 
 class ContactWidget extends StatelessWidget {
-  ContactWidget({required this.contact, Key? key}) : super(key: key);
-  ContactModel contact;
+  const ContactWidget({required this.contact, Key? key}) : super(key: key);
+  final ContactModel contact;
   @override
   Widget build(BuildContext context) {
     return Padding(

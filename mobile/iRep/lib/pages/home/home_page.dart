@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
+import 'package:irep/pages/ads/create_residence_page.dart';
 import 'package:irep/pages/dashboard/dashboard_page.dart';
-import 'package:irep/pages/dashboard/favorites_page.dart';
 import 'package:irep/pages/perfil/perfil_page.dart';
 import 'package:irep/viewmodels/residence_view_model.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,8 +17,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List<Widget> widgetOptions = const [
     DashboardPage(),
-    // AdsPage(),
-    FavoritesPage(),
+    CreateResidencePage(),
     PerfilPage(),
   ];
 
@@ -50,19 +49,12 @@ class _HomePageState extends State<HomePage> {
             ),
             label: 'Dashboard',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(
-          //     _selectedIndex == 1 ? Icons.work : Icons.work_outline,
-          //     color: Color(primaryColorRed),
-          //   ),
-          //   label: 'Meus Anuncios',
-          // ),
           BottomNavigationBarItem(
             icon: Icon(
-              _selectedIndex == 1 ? Icons.star : Icons.star_outline,
+              _selectedIndex == 1 ? Icons.work : Icons.work_outline,
               color: Color(primaryColorRed),
             ),
-            label: 'Favoritos',
+            label: 'Criar anúncio',
           ),
           BottomNavigationBarItem(
             icon: Icon(

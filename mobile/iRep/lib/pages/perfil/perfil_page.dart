@@ -5,7 +5,7 @@ import 'package:irep/helpers/widget_helpers.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/widgets/avatar_default.dart';
 import 'package:irep/widgets/contact_widget.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class PerfilPage extends StatelessWidget {
   const PerfilPage({Key? key}) : super(key: key);

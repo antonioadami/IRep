@@ -8,7 +8,7 @@ import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/widgets/button_pattern.dart';
 import 'package:irep/widgets/text_button_pattern.dart';
 import 'package:irep/widgets/text_field_pattern.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -20,9 +20,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerEmail =
+      TextEditingController(text: 'gustavo.simoes@btgpactual.com');
 
-  TextEditingController controllerSenha = TextEditingController();
+  TextEditingController controllerSenha =
+      TextEditingController(text: 'Zoio0811*');
 
   bool isLoading = false;
 
@@ -115,16 +117,6 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushNamed(
                             context,
                             register,
-                          );
-                        }),
-                  ),
-                  Expanded(
-                    child: TextButtonPattern(
-                        label: 'Esqueceu sua senha?',
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            passwordRecovery,
                           );
                         }),
                   ),

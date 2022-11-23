@@ -8,7 +8,7 @@ import 'package:irep/viewmodels/login_view_model.dart';
 import 'package:irep/widgets/button_pattern.dart';
 import 'package:irep/widgets/text_button_pattern.dart';
 import 'package:irep/widgets/text_field_pattern.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class VerifyCodePage extends StatefulWidget {
   const VerifyCodePage({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _showSnackBar();
     });
   }

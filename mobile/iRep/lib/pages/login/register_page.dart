@@ -19,25 +19,13 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController controllerNome = TextEditingController(text: 'Gustavo');
-
-  TextEditingController controllerCpf =
-      TextEditingController(text: '005.237.110-77');
-
-  TextEditingController controllerData =
-      TextEditingController(text: '16/09/1999');
-
-  TextEditingController controllerEmail =
-      TextEditingController(text: 'kbaasajhv@g.cvom');
-
-  TextEditingController controllerSenha =
-      TextEditingController(text: 'Maria1622*');
-
-  TextEditingController controllerRepetirSenha =
-      TextEditingController(text: 'Maria1622*');
-
-  TextEditingController controllerTelefone =
-      TextEditingController(text: '(37) 99983-4175');
+  TextEditingController controllerNome = TextEditingController();
+  TextEditingController controllerCpf = TextEditingController();
+  TextEditingController controllerData = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerSenha = TextEditingController();
+  TextEditingController controllerRepetirSenha = TextEditingController();
+  TextEditingController controllerTelefone = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -60,6 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Form(
                   key: _formKey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFieldPattern(
                         label: 'Nome',

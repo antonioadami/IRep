@@ -50,7 +50,6 @@ class ResidenceModel {
   String? photo;
   String? uuid;
   bool? internet;
-  bool? isFavorite;
   ResidenceModelEndereco? endereco;
   List<ContactModel>? contatos;
 
@@ -63,7 +62,6 @@ class ResidenceModel {
     this.photo,
     this.uuid,
     this.internet,
-    this.isFavorite = false,
     this.endereco,
     this.contatos,
   });
@@ -91,7 +89,6 @@ class ResidenceModel {
       photo: json['photo']?.toString(),
       uuid: json['uuid']?.toString(),
       internet: json['internet'],
-      isFavorite: json['isFavorite'] ?? false,
       endereco: (json['endereco'] != null)
           ? ResidenceModelEndereco.fromJson(json['endereco'])
           : null,
