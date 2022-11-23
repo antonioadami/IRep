@@ -1,7 +1,7 @@
 import session from '../../../../../shared/infra/neo4j-driver/index';
 import ICreatePessoaDTO from '../../../dtos/ICreatePessoaDTO';
 import IPessoaModel from '../../../models/IPessoaModel';
-import IPessoasRepository from '../../../repositories/IPessoaRepository';
+import IPessoasRepository from '../../../repositories/models/IPessoaRepository';
 
 export default class PessoasRepository implements IPessoasRepository {
     public async checkExistence(
@@ -30,7 +30,7 @@ export default class PessoasRepository implements IPessoasRepository {
         return Pessoa;
     }
 
-    public async getByEmail(email: string): Promise<IPessoaModel> {
+    public async getByEmail(email: string): Promise<IPessoaModel | null> {
         const result = await session.run(
             'MATCH(p: Pessoa{email: $email}) RETURN p',
             { email },

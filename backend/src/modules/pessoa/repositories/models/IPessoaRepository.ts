@@ -1,9 +1,9 @@
-import ICreatePessoaDTO from '../dtos/ICreatePessoaDTO';
-import IPessoaModel from '../models/IPessoaModel';
+import ICreatePessoaDTO from '../../dtos/ICreatePessoaDTO';
+import IPessoaModel from '../../models/IPessoaModel';
 
 export default interface IPessoaRepository {
     create(data: ICreatePessoaDTO): Promise<IPessoaModel>;
-    getByEmail(email: string): Promise<IPessoaModel>;
+    getByEmail(email: string): Promise<IPessoaModel | null>;
     checkExistence(cpf: string, email: string): Promise<IPessoaModel | null>;
     setAvatar(
         email: string,

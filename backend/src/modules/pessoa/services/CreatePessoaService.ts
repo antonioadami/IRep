@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '../../../shared/errors/AppError';
 import IPessoaModel from '../models/IPessoaModel';
-import IPessoaRepository from '../repositories/IPessoaRepository';
+import IPessoaRepository from '../repositories/models/IPessoaRepository';
 import ICreatePessoaDTO from '../dtos/ICreatePessoaDTO';
 
 @injectable()
