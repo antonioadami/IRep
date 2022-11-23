@@ -19,6 +19,8 @@ dependencies:
   either_dart: ^0.1.4
   top_snackbar_flutter: ^2.0.0
   shared_preferences: ^2.0.15
+  mocktail: ^0.3.0
+  equatable: any
 
 dev_dependencies:
   flutter_test:

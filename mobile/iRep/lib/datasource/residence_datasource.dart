@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/models/error_model.dart';
+import 'package:irep/models/residence_model.dart';
 import 'package:irep/models/succes_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResidenceDatasource {
-  Future<Either<ErrorModel, dynamic>> getResidences() async {
+  Future<Either<ErrorModel, List<ResidenceModel>>> getResidences() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
     Uri url = Uri.parse("http://$baseUrl/imovel");
@@ -17,11 +20,9 @@ class ResidenceDatasource {
     });
 
     if (response.statusCode == 200) {
-      return Right(
-        SuccessModel(
-          response: response.body,
-        ),
-      );
+      return Right(List<ResidenceModel>.from(jsonDecode(response.body)
+          .map((residence) => ResidenceModel.fromJson(residence))
+          .toList()));
     }
     return Left(
       ErrorModel(
@@ -31,7 +32,8 @@ class ResidenceDatasource {
     );
   }
 
-  Future<Either<dynamic, dynamic>> getResidenceInformation(String uuid) async {
+  Future<Either<ErrorModel, ResidenceModel>> getResidenceInformation(
+      String uuid) async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
     Uri url = Uri.parse("http://$baseUrl/imovel/$uuid");
@@ -42,14 +44,17 @@ class ResidenceDatasource {
     });
 
     if (response.statusCode == 200) {
-      return Right(response);
+      return Right(
+        ResidenceModel.fromJson(
+          jsonDecode(response.body),
+        ),
+      );
     }
     return Left(
-      response,
-      // ErrorModel(
-      //   statusCode: response.statusCode,
-      //   message: 'Erro ao fazer login.\nEmail ou senha incorretos.',
-      // ),
+      ErrorModel(
+        statusCode: response.statusCode,
+        message: 'Não foi possível buscar os dados da residência.',
+      ),
     );
   }
 
@@ -79,8 +84,8 @@ class ResidenceDatasource {
             statusCode: response.statusCode),
       );
     } catch (e) {
-      return Left(
-        ErrorModel(
+      return const Left(
+         ErrorModel(
           statusCode: 400,
           message: 'Erro ao cadastrar o imóvel!',
         ),

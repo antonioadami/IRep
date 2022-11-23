@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/helpers/functions_helpers.dart';
@@ -109,13 +107,13 @@ class _ResidenceWidgetState extends State<ResidenceWidget> {
           result.fold((left) {
             errorSnackbar(
               context,
-              message: 'Não foi possível buscar os dados da residência.',
+              message: left.message!,
             );
           }, (right) {
             Navigator.pushNamed(
               context,
               residenceDetails,
-              arguments: ResidenceModel.fromJson(jsonDecode(right.body)),
+              arguments: right,
             );
           });
         }

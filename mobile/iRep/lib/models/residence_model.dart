@@ -1,16 +1,17 @@
+import 'package:equatable/equatable.dart';
 import 'package:irep/enums/contact_type_enum.dart';
 import 'package:irep/models/contact_model.dart';
 
-class ResidenceModelEndereco {
-  String? estado;
-  String? cidade;
-  int? numero;
-  String? bairro;
-  String? uuid;
-  String? rua;
-  String? cep;
+class ResidenceModelEndereco extends Equatable {
+  final String? estado;
+  final String? cidade;
+  final int? numero;
+  final String? bairro;
+  final String? uuid;
+  final String? rua;
+  final String? cep;
 
-  ResidenceModelEndereco({
+  const ResidenceModelEndereco({
     this.estado,
     this.cidade,
     this.numero,
@@ -19,14 +20,16 @@ class ResidenceModelEndereco {
     this.rua,
     this.cep,
   });
-  ResidenceModelEndereco.fromJson(Map<String, dynamic> json) {
-    estado = json['estado']?.toString();
-    cidade = json['cidade']?.toString();
-    numero = json['numero']?.toInt();
-    bairro = json['bairro']?.toString();
-    uuid = json['uuid']?.toString();
-    rua = json['rua']?.toString();
-    cep = json['cep']?.toString();
+  factory ResidenceModelEndereco.fromJson(Map<String, dynamic> json) {
+    return ResidenceModelEndereco(
+      estado: json['estado']?.toString(),
+      cidade: json['cidade']?.toString(),
+      numero: json['numero']?.toInt(),
+      bairro: json['bairro']?.toString(),
+      uuid: json['uuid']?.toString(),
+      rua: json['rua']?.toString(),
+      cep: json['cep']?.toString(),
+    );
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -39,21 +42,32 @@ class ResidenceModelEndereco {
     data['cep'] = cep;
     return data;
   }
+
+  @override
+  List<Object?> get props => [
+        estado,
+        cidade,
+        numero,
+        bairro,
+        uuid,
+        rua,
+        cep,
+      ];
 }
 
-class ResidenceModel {
-  int? quartos;
-  int? estacionamento;
-  int? banheiros;
-  bool? gas;
-  String? nome;
-  String? photo;
-  String? uuid;
-  bool? internet;
-  ResidenceModelEndereco? endereco;
-  List<ContactModel>? contatos;
+class ResidenceModel extends Equatable {
+  final int? quartos;
+  final int? estacionamento;
+  final int? banheiros;
+  final bool? gas;
+  final String? nome;
+  final String? photo;
+  final String? uuid;
+  final bool? internet;
+  final ResidenceModelEndereco? endereco;
+  final List<ContactModel>? contatos;
 
-  ResidenceModel({
+  const ResidenceModel({
     this.quartos,
     this.estacionamento,
     this.banheiros,
@@ -114,4 +128,18 @@ class ResidenceModel {
   //   }
   //   return data;
   // }
+
+  @override
+  List<Object?> get props => [
+        quartos,
+        estacionamento,
+        banheiros,
+        gas,
+        nome,
+        photo,
+        uuid,
+        internet,
+        endereco,
+        contatos,
+      ];
 }

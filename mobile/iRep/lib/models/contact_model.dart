@@ -1,12 +1,13 @@
 import 'package:collection/collection.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:irep/enums/contact_type_enum.dart';
 
-class ContactModel {
-  String? info;
-  ContactTypeEnum? type;
+class ContactModel extends Equatable {
+  final String? info;
+  final ContactTypeEnum? type;
 
-  ContactModel({this.info, this.type});
+  const ContactModel({this.info, this.type});
 
   factory ContactModel.fromJson(Map<String, dynamic> json) {
     return ContactModel(
@@ -18,4 +19,10 @@ class ContactModel {
           ContactTypeEnum.OTHER,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        info,
+        type,
+      ];
 }

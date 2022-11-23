@@ -49,7 +49,7 @@ class LoginDatasource {
         ),
       );
     } catch (e) {
-      return Left(
+      return const Left(
         ErrorModel(
           statusCode: 500,
           message: 'Erro ao cadastrar novo usuário',
@@ -72,11 +72,11 @@ class LoginDatasource {
       if (response.statusCode == 200) {
         return Right(SuccessModel(message: "Usuário verificado!"));
       }
-      return Left(
+      return const Left(
         ErrorModel(message: "Erro ao verificar a conta"),
       );
     } catch (e) {
-      return Left(
+      return const Left(
         ErrorModel(message: "Erro ao verificar a conta"),
       );
     }
@@ -96,12 +96,12 @@ class LoginDatasource {
           jsonDecode(response.body),
         ));
       }
-      return Left(
+      return const Left(
         ErrorModel(message: "Erro ao reenviar código"),
       );
     } catch (e) {
-      return Left(
-        ErrorModel(message: "Erro ao reenviar código"),
+      return const Left(
+         ErrorModel(message: "Erro ao reenviar código"),
       );
     }
   }
@@ -139,8 +139,8 @@ class LoginDatasource {
         ),
       );
     } catch (e) {
-      return Left(
-        ErrorModel(
+      return const Left(
+         ErrorModel(
           statusCode: 500,
           message: 'Erro inesperado ao fazer login.',
         ),
