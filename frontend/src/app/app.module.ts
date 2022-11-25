@@ -3,9 +3,11 @@ import { ForgotPassComponent } from './page/forgotPass/forgotPass.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ToastrModule } from 'ngx-toastr';
 
-import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +28,7 @@ import { DescriptionPageComponent } from './page/description/description.compone
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { requestInterceptor } from './interceptors/request.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmRegisterComponent } from './page/confirm-register/confirm-register.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RepHeaderComponent,
     RepSidenavComponent,
     RepCardComponent,
+    ConfirmRegisterComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -61,14 +65,18 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
+    MatCheckboxModule,
+
+    // Toastr
+    ToastrModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [
     {
-        provide: HTTP_INTERCEPTORS,
-        useClass: requestInterceptor,
-        multi: true
+      provide: HTTP_INTERCEPTORS,
+      useClass: requestInterceptor,
+      multi: true
     }
-]
+  ]
 })
 export class AppModule { }

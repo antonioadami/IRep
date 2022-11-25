@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -28,6 +28,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "font-awesome": "^4.7.0",
+    "ngx-toastr": "^14.3.0",
     "rxjs": "~7.4.0",
     "tailwindcss": "^2.2.19",
     "tslib": "^2.3.0",

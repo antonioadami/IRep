@@ -16,18 +16,18 @@ export class LoginComponent implements OnInit {
   constructor(
     private _login: LoginService,
     private _formBuilder: FormBuilder,
-    private _route:Router,
+    private _route: Router,
   ) { }
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
       email: ['', [Validators.required]],
-      pass: ['',[Validators.required]]
+      pass: ['', [Validators.required]]
     });
   }
 
   connectUser(): void {
-    if(this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
 
     this._login.login(login);
-    if(!!window.localStorage.getItem(key)){
+    if (!!window.localStorage.getItem(key)) {
       this._route.navigate(['/Irep/dashboard'])
     }
 

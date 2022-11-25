@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdvertsPageComponent } from './page/adverts/adverts.component';
 import { AnnouncePageComponent } from './page/announce/announce.component';
+import { ConfirmRegisterComponent } from './page/confirm-register/confirm-register.component';
 import { DescriptionPageComponent } from './page/description/description.component';
 import { FavoritesPageComponent } from './page/favorites/favorites.component';
 import { ForgotPassComponent } from './page/forgotPass/forgotPass.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-pass', component: ForgotPassComponent },
+  { path: 'confirm', component: ConfirmRegisterComponent },
   { path: 'Irep', component: HomeComponent,
     children: [
       { path: 'dashboard', component: AdvertsPageComponent },

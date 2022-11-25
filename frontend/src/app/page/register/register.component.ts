@@ -1,8 +1,9 @@
-import { LoginService } from './../../services/login/login.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PeopleService } from 'src/app/services/people/person.service';
+import { ModelRegister } from 'src/app/services/people/Types/modelPerson';
+import { NotificationService } from 'src/app/services/toastr/toastr.service';
 
 @Component({
   selector: 'app-register',
@@ -16,14 +17,15 @@ export class RegisterComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _route:Router,
     private _person: PeopleService,
+    private _toast: NotificationService,
   ) { }
 
   ngOnInit() {
     this.registerForm = this._formBuilder.group({
       nome: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       senha: ['',[Validators.required]],
-      cpf: ['',[Validators.required]],
+      cpf: ['',[Validators.required, Validators.maxLength(11), Validators.minLength(11)]],
       data: ['',[Validators.required]],
       telefone: ['',[Validators.required]],
     });
@@ -52,12 +54,26 @@ export class RegisterComponent implements OnInit {
       telefone: telefone,
     }
 
+    console.log('Register');
+
+    this._toast.showSuccess('Codigo enviado','Success');
+    return;
     this._person.createPerson(person)
-      .subscribe(person => {
-        console.log(person);
-        if(person) this._route.navigate(['/login']);
+      .subscribe({
+        next: this.processNDRs.bind(this),
+        error: this.processNDRsError.bind(this),
       })
 
+  }
+
+  private processNDRs(register: ModelRegister): void {
+    console.log('Aqui');
+    this._route.navigate(['/login']);
+  }
+
+  private processNDRsError(error: any): void {
+    console.log('Error' + error.error.message);
+    this._toast.showError(error.error.message, 'Error Register');
   }
 
 }

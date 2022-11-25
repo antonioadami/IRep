@@ -15,3 +15,15 @@ export interface ModelPersonReturn {
   uuid: string,
   telefone: string,
 }
+
+export interface ModelRegister {
+  username: string;
+  codeDeliveryDetails: ModelCodeDelivery;
+}
+
+export interface ModelCodeDelivery
+{
+  Destination: string;
+  AttributeName: string;
+  DeliveryMedium: string;
+}

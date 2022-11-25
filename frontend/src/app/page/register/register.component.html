@@ -24,6 +24,9 @@
           <mat-error class="text-base"
             *ngIf="registerForm.get('email').hasError('required') && (registerForm.get('email').dirty || registerForm.get('email').touched)">
             Email é obrigatório</mat-error>
+            <mat-error class="text-base"
+            *ngIf="registerForm.get('email').hasError('email')">
+            Email inválido</mat-error>
         </mat-form-field>
       </div>
       <div class="flex flex-col my-4">
@@ -33,6 +36,9 @@
           <mat-error class="text-base"
             *ngIf="registerForm.get('cpf').hasError('required') && (registerForm.get('cpf').dirty || registerForm.get('cpf').touched)">
             CPF é obrigatório</mat-error>
+          <mat-error class="text-base"
+            *ngIf="registerForm.get('cpf').hasError('maxlength') || registerForm.get('cpf').hasError('minlength') ">
+            CPF precisa ter exatamente 11 números</mat-error>
         </mat-form-field>
       </div>
       <div class="flex flex-col my-4">
