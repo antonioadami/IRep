@@ -1,8 +1,11 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/helpers/constants_helpers.dart';
+import 'package:irep/helpers/functions_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
+import 'package:irep/viewmodels/navigate_view_model.dart';
 import 'package:irep/viewmodels/residence_view_model.dart';
 import 'package:irep/widgets/button_pattern.dart';
 import 'package:irep/widgets/text_field_pattern.dart';
@@ -16,18 +19,24 @@ class CreateResidencePage extends StatefulWidget {
 }
 
 class _CreateResidencePageState extends State<CreateResidencePage> {
-  TextEditingController controllerNome = TextEditingController();
-  TextEditingController controllerCidade = TextEditingController();
-  TextEditingController controllerCep = TextEditingController();
-  TextEditingController controllerBairro = TextEditingController();
-  TextEditingController controllerRua = TextEditingController();
-  TextEditingController controllerNumero = TextEditingController();
-  TextEditingController controllerEstado = TextEditingController();
-  TextEditingController controllerQuartos = TextEditingController();
-  TextEditingController controllerBanheiros = TextEditingController();
-  TextEditingController controllerEstacionamento = TextEditingController();
+  TextEditingController controllerNome =
+      TextEditingController(text: 'Republica Novo Mundo');
+  TextEditingController controllerCidade =
+      TextEditingController(text: 'Santa Rita do Sapucaí');
+  TextEditingController controllerCep =
+      TextEditingController(text: '37.540-000');
+  TextEditingController controllerBairro =
+      TextEditingController(text: 'Bairro Monte Verde');
+  TextEditingController controllerRua =
+      TextEditingController(text: 'Rua Manuel Patta');
+  TextEditingController controllerNumero = TextEditingController(text: '484');
+  TextEditingController controllerEstado = TextEditingController(text: 'MG');
+  TextEditingController controllerQuartos = TextEditingController(text: '4');
+  TextEditingController controllerBanheiros = TextEditingController(text: '2');
+  TextEditingController controllerEstacionamento =
+      TextEditingController(text: '2');
   bool temGas = false;
-  bool temInternet = false;
+  bool temInternet = true;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -72,7 +81,10 @@ class _CreateResidencePageState extends State<CreateResidencePage> {
                         label: 'CEP',
                         controller: controllerCep,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [CepInputFormatter()],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          CepInputFormatter(),
+                        ],
                         validator: (text) {
                           if (text!.isEmpty) {
                             return 'Obrigatório';
@@ -183,7 +195,14 @@ class _CreateResidencePageState extends State<CreateResidencePage> {
                             onChanged: (_) => setState(() {
                               temGas = !temGas;
                             }),
-                            checkColor: Color(primaryColorRed),
+                            fillColor: MaterialStateColor.resolveWith(
+                              (states) {
+                                if (states.contains(MaterialState.selected)) {
+                                  return Color(primaryColorRed);
+                                }
+                                return Colors.black;
+                              },
+                            ),
                           ),
                           const Spacer(),
                           const Text('Internet'),
@@ -216,7 +235,47 @@ class _CreateResidencePageState extends State<CreateResidencePage> {
                                 ),
                               )
                             : 'Criar anúncio',
-                        onTap: () {},
+                        onTap: () async {
+                          if (!isLoading && _formKey.currentState!.validate()) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            _formKey.currentState!.save();
+
+                            var result = await viewmodel.createResidence(
+                              nome: controllerNome.text,
+                              cidade: controllerCidade.text,
+                              cep: controllerCep.text,
+                              bairro: controllerBairro.text,
+                              rua: controllerRua.text,
+                              numero: int.parse(controllerNumero.text),
+                              estado: controllerEstado.text,
+                              quartos: int.parse(controllerQuartos.text),
+                              banheiros: int.parse(controllerBanheiros.text),
+                              estacionamentos:
+                                  int.parse(controllerEstacionamento.text),
+                              gas: temGas,
+                              internet: temInternet,
+                            );
+
+                            result.fold(
+                              (left) => errorSnackbar(
+                                context,
+                                message: left.message ?? '',
+                              ),
+                              (right) async {
+                                await viewmodel.getResidences();
+                                context
+                                    .read<NavigateViewModel>()
+                                    .changeSelectedIndex(0);
+                              },
+                            );
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
+                        },
                       ),
                       spacingStack8,
                     ],

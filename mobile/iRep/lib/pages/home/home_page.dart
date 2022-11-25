@@ -3,6 +3,7 @@ import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/pages/ads/create_residence_page.dart';
 import 'package:irep/pages/dashboard/dashboard_page.dart';
 import 'package:irep/pages/perfil/perfil_page.dart';
+import 'package:irep/viewmodels/navigate_view_model.dart';
 import 'package:irep/viewmodels/residence_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
   List<Widget> widgetOptions = const [
     DashboardPage(),
     CreateResidencePage(),
@@ -28,14 +28,10 @@ class _HomePageState extends State<HomePage> {
     viewmodel.getResidences();
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    NavigateViewModel navigateViewModel = context.watch<NavigateViewModel>();
+    int _selectedIndex = navigateViewModel.selectedIndex;
     return Scaffold(
       body: Column(children: [
         widgetOptions.elementAt(_selectedIndex),
@@ -68,7 +64,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Color(primaryColorRed),
-        onTap: _onItemTapped,
+        onTap: navigateViewModel.changeSelectedIndex,
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
-import 'package:http/http.dart' as http;
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/models/error_model.dart';
 import 'package:irep/models/residence_model.dart';
@@ -12,15 +12,20 @@ class ResidenceDatasource {
   Future<Either<ErrorModel, List<ResidenceModel>>> getResidences() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("http://$baseUrl/imovel");
+    String url = "http://$baseUrl/imovel";
 
     String token = shared.getString('token') ?? '';
-    var response = await http.get(url, headers: {
-      'Authorization': 'Bearer $token',
-    });
+    var response = await Dio().get(
+      url,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
-      return Right(List<ResidenceModel>.from(jsonDecode(response.body)
+      return Right(List<ResidenceModel>.from(response.data
           .map((residence) => ResidenceModel.fromJson(residence))
           .toList()));
     }
@@ -36,17 +41,22 @@ class ResidenceDatasource {
       String uuid) async {
     SharedPreferences shared = await SharedPreferences.getInstance();
 
-    Uri url = Uri.parse("http://$baseUrl/imovel/$uuid");
+    String url = "http://$baseUrl/imovel/$uuid";
 
     String token = shared.getString('token') ?? '';
-    var response = await http.get(url, headers: {
-      'Authorization': 'Bearer $token',
-    });
+    var response = await Dio().get(
+      url,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
       return Right(
         ResidenceModel.fromJson(
-          jsonDecode(response.body),
+          response.data,
         ),
       );
     }
@@ -58,34 +68,70 @@ class ResidenceDatasource {
     );
   }
 
-  Future<Either<ErrorModel, SuccessModel>> createUser({
-    required String cpf,
+  Future<Either<ErrorModel, SuccessModel>> createResidence({
+    required String nome,
+    required String estado,
     required String cidade,
     required String cep,
     required String bairro,
     required String rua,
-    required String numero,
-    required String quartos,
-    required String estacionamentos,
-    required String banheiros,
+    required int numero,
+    required int quartos,
+    required int estacionamentos,
+    required int banheiros,
     required bool gas,
     required bool internet,
   }) async {
-    Uri url = Uri.parse("http://$baseUrl/pessoa");
+    SharedPreferences shared = await SharedPreferences.getInstance();
 
-    var body = {};
+    String url = "http://$baseUrl/imovel";
+    String token = shared.getString('token') ?? '';
+    var _body = 
+      {
+        "nome": nome,
+        "quartos": quartos,
+        "banheiros": banheiros,
+        "estacionamento": estacionamentos,
+        "gas": gas,
+        "internet": internet,
+        "endereco": {
+          "estado": estado,
+          "cidade": cidade,
+          "bairro": bairro,
+          "rua": rua,
+          "numero": numero,
+          "cep": cep,
+        }
+      };
     try {
-      var response = await http.post(url, body: body);
-
-      return Right(
-        SuccessModel(
+      var response = await Dio().post(
+        url,
+        data: _body,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return Right(
+          SuccessModel(
             response: response,
             message: 'Imóvel cadastrado com sucesso!',
-            statusCode: response.statusCode),
+            statusCode: response.statusCode,
+          ),
+        );
+      }
+
+      return Left(
+        ErrorModel(
+          statusCode: response.statusCode,
+          message: 'Erro ao cadastrar o imóvel!',
+        ),
       );
     } catch (e) {
       return const Left(
-         ErrorModel(
+        ErrorModel(
           statusCode: 400,
           message: 'Erro ao cadastrar o imóvel!',
         ),

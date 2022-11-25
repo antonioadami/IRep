@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irep/helpers/color_helpers.dart';
 import 'package:irep/helpers/constants_helpers.dart';
 import 'package:irep/helpers/widget_helpers.dart';
 import 'package:irep/viewmodels/residence_view_model.dart';
@@ -36,28 +37,37 @@ class _DashboardPageState extends State<DashboardPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  if (viewmodel.residences.isEmpty)
-                    Card(
-                      child: Container(
-                        width: double.infinity,
-                        height: 75,
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            Icon(Icons.block),
-                            Text(
-                              'Não há anúncios para exibir',
-                              style: TextStyle(fontSize: 20),
-                            )
-                          ],
+                  if (viewmodel.loadResidenceList)
+                    SizedBox(
+                        height: 300,
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          color: Color(primaryColorRed),
+                        ))),
+                  if (!viewmodel.loadResidenceList) ...[
+                    if (viewmodel.residences.isEmpty)
+                      Card(
+                        child: Container(
+                          width: double.infinity,
+                          height: 75,
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: const [
+                              Icon(Icons.block),
+                              Text(
+                                'Não há anúncios para exibir',
+                                style: TextStyle(fontSize: 20),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  else
-                    ...viewmodel.residences.map((e) {
-                      return ResidenceWidget(residence: e);
-                    }).toList(),
+                      )
+                    else
+                      ...viewmodel.residences.map((e) {
+                        return ResidenceWidget(residence: e);
+                      }).toList(),
+                  ],
                 ],
               ),
             ),

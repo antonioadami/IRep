@@ -6,6 +6,7 @@ import 'package:irep/helpers/functions_helpers.dart';
 import 'package:irep/models/residence_model.dart';
 import 'package:irep/routes/name_routes.dart';
 import 'package:irep/viewmodels/login_view_model.dart';
+import 'package:irep/viewmodels/navigate_view_model.dart';
 import 'package:irep/viewmodels/residence_view_model.dart';
 import 'package:irep/widgets/avatar_default.dart';
 import 'package:irep/widgets/text_button_pattern.dart';
@@ -61,6 +62,9 @@ class AppBarWidget extends StatelessWidget {
                         color: Colors.white,
                         onTap: () async {
                           viewModel.logOut();
+                          context
+                              .read<NavigateViewModel>()
+                              .changeSelectedIndex(0);
                           Navigator.pop(context);
                         },
                       )

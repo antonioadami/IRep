@@ -92,9 +92,11 @@ class LoginDatasource {
     try {
       var response = await Dio().post(url, data: params);
       if (response.statusCode == 200) {
-        return Right(CreatePersonResponse.fromJson(
-          response.data,
-        ));
+        return Right(
+          CreatePersonResponse.fromJson(
+            response.data,
+          ),
+        );
       }
       return const Left(
         ErrorModel(message: "Erro ao reenviar código"),
