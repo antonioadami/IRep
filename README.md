@@ -23,7 +23,7 @@ Este repositório está em desenvolvimento e recebeu a contribuição de:
 
 ### Backend
 
-Você precisará que ter [Node.js](https://nodejs.org) instalado em seu computador.
+Você precisará ter [Node.js](https://nodejs.org) instalado em seu computador.
 
 ```bash
 git clone https://github.com/antonioadami/IRep.git
@@ -36,7 +36,7 @@ Inicia o projeto em modo de desenvolvimento.<br/>
 
 ### Frontend
 
-Você precisará que ter [Node.js](https://nodejs.org) instalado em seu computador.
+Você precisará ter [Node.js](https://nodejs.org) instalado em seu computador.
 
 ```bash
 git clone https://github.com/antonioadami/IRep.git
@@ -48,3 +48,16 @@ $ yarn start
 Inicia o projeto em modo de desenvolvimento.<br/>
 
 ### Mobile
+
+Você precisará ter o [Flutter](https://docs.flutter.dev/) instalado em seu computador.
+
+[Aqui](https://docs.flutter.dev/get-started/install) você pode acessar o tutorial de instalação.
+
+```bash
+git clone https://github.com/antonioadami/IRep.git
+$ cd mobile
+$ flutter pub get
+$ flutter run
+```
+
+Inicia o projeto em modo de desenvolvimento.<br/>
