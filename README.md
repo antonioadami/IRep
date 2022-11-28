@@ -40,7 +40,7 @@ Você precisará que ter [Node.js](https://nodejs.org) instalado em seu computad
 
 ```bash
 git clone https://github.com/antonioadami/IRep.git
-$ cd backend
+$ cd frontend
 $ yarn install
 $ yarn start
 ```
