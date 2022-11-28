@@ -28,8 +28,8 @@ Você precisará que ter [Node.js](https://nodejs.org) instalado em seu computad
 ```bash
 git clone https://github.com/antonioadami/IRep.git
 $ cd backend
-$ yarn install
-$ yarn dev
+$ npm install
+$ npm dev
 ```
 
 Inicia o projeto em modo de desenvolvimento.<br/>
@@ -41,8 +41,8 @@ Você precisará que ter [Node.js](https://nodejs.org) instalado em seu computad
 ```bash
 git clone https://github.com/antonioadami/IRep.git
 $ cd frontend
-$ yarn install
-$ yarn start
+$ npm install
+$ npm start
 ```
 
 Inicia o projeto em modo de desenvolvimento.<br/>
