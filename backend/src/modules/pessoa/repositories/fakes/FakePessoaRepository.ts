@@ -1,5 +1,5 @@
-import ICreatePessoaDTO from 'src/modules/pessoa/dtos/ICreatePessoaDTO';
-import IPessoaModel from 'src/modules/pessoa/models/IPessoaModel';
+import ICreatePessoaDTO from '../../dtos/ICreatePessoaDTO';
+import IPessoaModel from '../../models/IPessoaModel';
 import IPessoasRepository from '../models/IPessoaRepository';
 
 export default class FakePessoasRepository implements IPessoasRepository {
