@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ModelLogin } from './Types/modelLogin';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -15,14 +16,8 @@ export class LoginService {
     private http: HttpClient,
   ) { }
 
-  login(user: ModelLogin): void {
-    this.http.post<any>(API_URL + 'auth/login', user)
-      .subscribe(ans => {
-        console.log(ans);
-        window.localStorage.setItem(key, ans.token);
-      }, err => {
-        console.log(err);
-      })
+  login(user: ModelLogin): Observable<any> {
+    return this.http.post<any>(API_URL + 'auth/login', user);
   }
 
 }

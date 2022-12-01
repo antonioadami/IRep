@@ -28,9 +28,10 @@
     </form>
 
     <div class="flex flex-col gap-3 grid justify-items-center">
-      <button class="text-red-600 mb-6 px-3 py-1 border-2 border-red-600 rounded-2xl" [routerLink]="['/forgot-pass']">Esqueceu sua senha?</button>
+      <!-- <button class="text-red-600 mb-6 px-3 py-1 border-2 border-red-600 rounded-2xl" [routerLink]="['/forgot-pass']">Esqueceu sua senha?</button> -->
       <button class="bg-red-600 rounded-2xl text-white h-12 w-80" (click)="connectUser()">Entrar</button>
       <button class="text-red-600 my-6 px-3 py-1 border-2 border-red-600 rounded-2xl" [routerLink]="['/register']">Cadastrar-se</button>
+      <button class="text-red-600 my-6 px-3 py-1 border-2 border-red-600 rounded-2xl mt-0" [routerLink]="['/confirm']">Confirmar usuário já criado</button>
     </div>
   </div>
 </div>

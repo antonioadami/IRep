@@ -100,8 +100,8 @@
         </mat-form-field>
       </div>
       <div class="flex flex-col grid justify-center">
-        <mat-checkbox class="example-margin">Gás</mat-checkbox>
-        <mat-checkbox class="example-margin">Internet</mat-checkbox>
+        <mat-checkbox [formControlName]="'gas'" class="example-margin">Gás</mat-checkbox>
+        <mat-checkbox [formControlName]="'internet'" class="example-margin">Internet</mat-checkbox>
       </div>
     </div>
   </form>

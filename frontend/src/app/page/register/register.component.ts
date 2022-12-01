@@ -37,41 +37,29 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const nome = this.registerForm.get('nome').value;
-    const email = this.registerForm.get('email').value;
-    const senha = this.registerForm.get('senha').value;
-    const cpf = this.registerForm.get('cpf').value;
-    const data = this.registerForm.get('data').value;
-    const telefone = this.registerForm.get('telefone').value;
-
-
     const person = {
-      nome: nome,
-      email: email,
-      senha: senha,
-      cpf: cpf,
-      dataNascimento: data,
-      telefone: telefone,
+      nome: this.registerForm.get('nome').value,
+      email: this.registerForm.get('email').value,
+      senha: this.registerForm.get('senha').value,
+      cpf: this.registerForm.get('cpf').value,
+      dataNascimento: this.registerForm.get('data').value,
+      telefone: this.registerForm.get('telefone').value,
     }
 
-    console.log('Register');
-
-    this._toast.showSuccess('Codigo enviado','Success');
-    return;
     this._person.createPerson(person)
       .subscribe({
-        next: this.processNDRs.bind(this),
-        error: this.processNDRsError.bind(this),
+        next: this.register.bind(this),
+        error: this.registerError.bind(this),
       })
 
   }
 
-  private processNDRs(register: ModelRegister): void {
-    console.log('Aqui');
-    this._route.navigate(['/login']);
+  private register(register: ModelRegister): void {
+    this._toast.showSuccess(`Código enviado para ${register.codeDeliveryDetails.Destination} `,'Success');
+    this._route.navigate(['/confirm']);
   }
 
-  private processNDRsError(error: any): void {
+  private registerError(error: any): void {
     console.log('Error' + error.error.message);
     this._toast.showError(error.error.message, 'Error Register');
   }

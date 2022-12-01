@@ -20,7 +20,6 @@ export class AdvertsPageComponent implements OnInit {
   ngOnInit(): void {
     this._advert.getAdvert().subscribe(adverts => {
       this.adverts = adverts;
-      console.log(this.adverts);
     })
 
   }

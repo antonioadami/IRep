@@ -8,18 +8,28 @@
       <!-- Email -->
       <div class="flex flex-col w-80">
         <mat-form-field class="text-base" appearance="outline">
+          <mat-label>Insira o Email do usuário</mat-label>
+          <input matInput type="text" [formControlName]="'email'">
+          <mat-error class="text-base"
+          *ngIf="confirmForm.get('email').hasError('required') && (confirmForm.get('email').dirty || confirmForm.get('email').touched)">
+          Email é necessário</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- Code -->
+      <div class="flex flex-col w-80 mt-2">
+        <mat-form-field class="text-base" appearance="outline">
           <mat-label>Insira o Código</mat-label>
           <input matInput type="text" [formControlName]="'code'">
           <mat-error class="text-base"
-          *ngIf="confirmForm.get('code').hasError('required') && (confirmForm.get('code').dirty || confirmForm.get('code').touched)">
-          Código é necessário required</mat-error>
+          *ngIf="confirmForm.get('code').hasError('required') && (confirmForm.get('code').touched)">
+          Código é necessário</mat-error>
         </mat-form-field>
       </div>
     </form>
 
-    <div class="flex flex-col gap-3 grid justify-items-center">
+    <div class="flex flex-col gap-3 grid justify-items-center mt-7">
       <button class="bg-red-600 rounded-2xl text-white h-12 w-80" (click)="confirmCode()">Confirmar</button>
-      <button class="text-red-600 my-6 px-3 py-1 border-2 border-red-600 rounded-2xl" [routerLink]="['/register']">Reeviar Código</button>
+      <button class="text-red-600 my-6 px-3 py-1 border-2 border-red-600 rounded-2xl" (click)="resendCode()">Reeviar Código</button>
     </div>
   </div>
 </div>

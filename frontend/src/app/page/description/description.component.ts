@@ -27,7 +27,6 @@ export class DescriptionPageComponent implements OnInit {
 
     this._advert.advert(this.id).subscribe(advert => {
       this.advert = advert
-      console.log(advert);
     })
 
   }

@@ -1,10 +1,10 @@
 export interface ModelPerson {
-    cpf: string,
-    email: string,
-    nome: string,
-    dataNascimento: string,
-    senha: string,
-    telefone: string,
+  cpf: string,
+  email: string,
+  nome: string,
+  dataNascimento: string,
+  senha: string,
+  telefone: string,
 }
 
 export interface ModelPersonReturn {
@@ -17,13 +17,17 @@ export interface ModelPersonReturn {
 }
 
 export interface ModelRegister {
-  username: string;
+  username?: string;
   codeDeliveryDetails: ModelCodeDelivery;
 }
 
-export interface ModelCodeDelivery
-{
+export interface ModelCodeDelivery {
   Destination: string;
   AttributeName: string;
   DeliveryMedium: string;
+}
+
+export interface ModelConfirmCode {
+  email: string;
+  code: string;
 }

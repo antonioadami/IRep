@@ -1,5 +1,4 @@
 import { ModelAdvert } from './../../services/advert/Type/modelAdvert';
-import { IAdverts } from './../../utils/adverts';
 import { Component, Input, OnInit } from '@angular/core';
 import { AdvertService } from 'src/app/services/advert/advert.service';
 
@@ -18,10 +17,8 @@ export class RepCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.advert);
     this._advert.getAdvert().subscribe(adverts => {
       this.adverts = adverts;
-      console.log(this.adverts);
     })
 
   }

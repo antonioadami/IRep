@@ -14,8 +14,8 @@
 
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item><i class="fa fa-star fa-lg mr-3 text-red-600" aria-hidden="true"></i>Favoritos</button>
       <button mat-menu-item><i class="fa fa-user-circle fa-lg mr-3 text-red-600"></i>Perfil</button>
+      <button mat-menu-item [routerLink]="['/login']"><i class="fa fa-arrow-left fa-lg mr-3 text-red-600"></i>Sair</button>
     </mat-menu>
   </div>
 </div>

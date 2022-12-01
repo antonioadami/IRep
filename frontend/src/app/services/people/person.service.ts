@@ -1,4 +1,4 @@
-import { ModelPerson, ModelRegister } from './Types/modelPerson';
+import { ModelConfirmCode, ModelPerson, ModelRegister } from './Types/modelPerson';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,7 +19,12 @@ export class PeopleService {
     return this.http.post<ModelRegister>(API_URL + 'pessoa', person);
   }
 
-  confirmRegisterCode() {
+  confirmRegisterCode(code: ModelConfirmCode): Observable<any> {
+    return this.http.post<ModelRegister>(API_URL + 'auth/verify', code);
+  }
 
+  resendCode(email: string): Observable<any> {
+    console.log(email);
+    return this.http.post<any>(API_URL + 'auth/resendCode', {email: email});
   }
 }

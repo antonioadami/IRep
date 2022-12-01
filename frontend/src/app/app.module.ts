@@ -22,7 +22,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RepSidenavComponent } from './component/Sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RepCardComponent } from './component/Card/card.component';
-import { FavoritesPageComponent } from './page/favorites/favorites.component';
 import { AnnouncePageComponent } from './page/announce/announce.component';
 import { DescriptionPageComponent } from './page/description/description.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -39,7 +38,6 @@ import { ConfirmRegisterComponent } from './page/confirm-register/confirm-regist
     RegisterComponent,
     ForgotPassComponent,
     AdvertsPageComponent,
-    FavoritesPageComponent,
     AnnouncePageComponent,
     DescriptionPageComponent,
 
