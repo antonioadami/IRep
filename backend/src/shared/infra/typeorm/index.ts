@@ -1,4 +1,4 @@
-import { log } from 'console';
+import 'dotenv/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 const config: DataSourceOptions = {
@@ -14,15 +14,8 @@ const config: DataSourceOptions = {
     migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
 };
 
-log(config);
+const PostgresDataSource = new DataSource(config);
 
-const connection = new DataSource(config);
+PostgresDataSource.initialize();
 
-connection
-    .initialize()
-    .then(() => {
-        console.log(`Data Source has been initialized`);
-    })
-    .catch((err: unknown) => {
-        console.error(`Data Source initialization error`, err);
-    });
+export default PostgresDataSource;

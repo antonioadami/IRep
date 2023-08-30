@@ -7,7 +7,9 @@
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --transpile-only --inspect --ignore-watch node_modules src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "migration:run": "npx typeorm-ts-node-esm migration:run -d ./src/shared/infra/typeorm/index.ts",
+    "migration:revert": "npx typeorm-ts-node-esm migration:revert -d ./src/shared/infra/typeorm/index.ts"
   },
   "author": "antonioadami",
   "license": "ISC",
